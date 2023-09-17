@@ -6,21 +6,32 @@ export default class Character {
     constructor(options) {
         this.pos = options.pos
         this.vel = options.vel
-
+        this.height = options.height
+        this.width = options.width
+        this.game = options.game
     }
 
     draw(ctx) {
         ctx.fillStyle = "red"
-        ctx.fillRect(this.pos.x, this.pos.y, 50, 150)
+        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
     }
 
     move() {
-        this.draw
-        this.pos.y += CONSTANTS.GRAVITY
+        // apply gravity
+        this.pos.y += this.vel.y
+        this.vel.y += CONSTANTS.GRAVITY
+
+        const characterBase = this.pos.y + this.height + this.vel.y
+        if (characterBase >= 576) {
+            this.vel.y = 0
+        }
     }
 
-    // animate() {
-    //     this.move()
-    //     this.draw(ctx)
-    // }
+    // equivalent to update
+    animate(ctx) {
+        this.move()
+        this.draw(ctx)
+    }
+
+
 }

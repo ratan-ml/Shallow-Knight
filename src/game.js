@@ -1,7 +1,7 @@
 import Player from "./player";
 import Boss from "./boss";
 
-class Game {
+export default class Game {
     constructor() {
         this.player = [];
         this.boss = []
@@ -9,11 +9,29 @@ class Game {
         
     }
 
-    update() {
+    // static DIM_X = 1024
+    // static DIM_Y = 576
+
+    
+    // isOutofBounds(pos) {
+    //     return (pos[0] < 0) || (pos[1] < 0) ||
+    //     (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
+    // }
+
+    add(object) {
 
     }
 
-    animate() {
-        requestAnimationFrame()
-    }
+
+
+
+    
+    // update() {
+
+    // }
+
+    // animate() {
+
+    //     requestAnimationFrame(this.animate.bind(this))
+    // }
 }
