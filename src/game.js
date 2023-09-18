@@ -6,13 +6,14 @@ export default class Game {
         this.player = new Player({
             pos: {
                 x: 0,
-                y: 576 - 250,
+                y: 700 - 250,
             },
             vel: {
                 x: 0,
                 y: 0,
             },
             game: this,
+            health: 3
         });
         this.boss = new Boss({
             pos: {
@@ -24,13 +25,14 @@ export default class Game {
                 y: 0,
             },
             game: this,
+            health: 20
         });
         this.projectiles = [];
         this.ctx = ctx
     }
 
-    static DIM_X = 1024
-    static DIM_Y = 576
+    static DIM_X = 1500
+    static DIM_Y = 700
 
     add(object) {
         if (object instanceof Player) {

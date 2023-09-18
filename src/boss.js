@@ -5,6 +5,7 @@ export default class Boss extends Character {
         super(options)
         this.height = 250
         this.width = 100
+        this.health = 20
     }
 
     update() {

@@ -6,15 +6,20 @@ export default class Player extends Character{
         super(options)
         this.height = 150
         this.width = 50
+        this.health = 3
 
         this.isMovingLeft = false
         this.isMovingRight = false
-        this.isJumping = false
+        // this.isJumping = false
         this.isAttacking = false
-        this.isDashing = false
+        // this.isDashing = false
         this.initMovement()
+        // this.jumpCount = 1
+        
     }
 
+    static atkWidth = 75
+    static atkHeight = 50
 
     initMovement() {
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
@@ -25,17 +30,21 @@ export default class Player extends Character{
         console.log(event.key)
         switch (event.key) {
             case "ArrowLeft":
-                this.isMovingLeft = true
-                break
+                this.isMovingLeft = true;
+                this.attackDir = "leftSide"
+                break;
             case "ArrowRight":
-                this.isMovingRight = true
-                break
+                this.isMovingRight = true;
+                this.attackDir = "rightSide"
+                break;
             case "z":
-                this.isJumping = true
-                break
+                // TODO: limit to one jump per floor contact
+                // ISSUE: jumpCount value is not saved
+                this.vel.y = -15
+                break;
             case "x":
-                this.isAttacking = true
-                break
+                this.isAttacking = true;
+                break;
             // case "c":
             //     this.isDashing = true
             //     break
@@ -50,37 +59,36 @@ export default class Player extends Character{
             case "ArrowRight":
                 this.isMovingRight = false
                 break
-            case "z":
-                this.isJumping = false
-                break
-            case "x":
-                this.isAttacking = false
-                break
-            case "c":
-                this.isDashing = false
-                break
+            // case "z":
+            //     this.isJumping = false
+            //     break
+            // case "x":
+            //     this.isAttacking = false
+            //     break
+            // case "c":
+            //     this.isDashing = false
+            //     break
         }
     }
 
     update() {
-        // console.log(this.isMovingRight)
         this.applyGravity()
         if (this.isMovingLeft) {
-            this.pos.x -= 20
+            this.pos.x -= 10
         }
         if (this.isMovingRight) {
-            this.pos.x += 20
+            this.pos.x += 10
         }
-        if (this.isJumping) {
-            this.pos.y -= 10
+        if (this.isAttacking) {
+            
         }
-        console.log(this.vel)
-        console.log(this.pos)
     }
 
     // attack
         // create attack box
         // check if collide with boss box
-    
+    attack (ctx) {
+
+    }
     // jump
 }
