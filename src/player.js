@@ -27,7 +27,7 @@ export default class Player extends Character{
     }
 
     handleKeyDown(event) {
-        console.log(event.key)
+        // console.log(event.key)
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = true;
@@ -39,8 +39,16 @@ export default class Player extends Character{
                 break;
             case "z":
                 // TODO: limit to one jump per floor contact
-                // ISSUE: jumpCount value is not saved
-                this.vel.y = -15
+                // ISSUE: buffer/lag on resetting jump when contacting floor
+                // console.log(this.jumpCount)
+                // if (this.jumpCount > 0) {
+                    this.vel.y = -15
+                    // this.jumpCount = 0
+                // }
+                // console.log(this.jumpCount)
+                // console.log(this.vel.y === 0)
+                // if (this.vel.y === 0) this.jumpCount = 1
+                // console.log(this.jumpCount)
                 break;
             case "x":
                 this.isAttacking = true;
