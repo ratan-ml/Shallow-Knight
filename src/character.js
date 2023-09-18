@@ -11,35 +11,37 @@ export default class Character {
         this.game = options.game
         this.attackBox = {
             pos: {
-                x: this.pos.x,
+                x: this.pos.x + this.width,
                 y: this.pos.y
             },
             height: 50,
             width: 75
         }
-        this.attackDir = "rightSide" // change attack box dir depending on last key
+        this.attackDir = null // change attack box dir depending on last key
     }
 
     draw(ctx) {
         ctx.fillStyle = "red"
         ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
 
-        // FIX: attack box not being drawn
-        if (this.attackDir === "rightSide") {
-            ctx.fillStyle = "orange"
-            ctx.fillRect(
-                this.attackBox.x, 
-                this.attackBox.y,
-                this.attackBox.width, 
-                this.attackBox.height)
-        } else {
-            ctx.fillStyle = "orange"
-            ctx.fillRect(
-                -(this.attackBox.x), 
-                -(this.attackBox.y), 
-                -(this.attackBox.width), 
-                -(this.attackBox.height)
-        )}
+        // FIX: not updating with this.pos
+        // console.log(this.attackDir === "rightSide")
+        // if (this.attackDir === "rightSide") {
+            // console.log(this.pos.x)
+        ctx.fillStyle = "orange"
+        ctx.fillRect(
+            this.attackBox.pos.x, 
+            this.attackBox.pos.y,
+            this.attackBox.width, 
+            this.attackBox.height)
+        // } else {
+        //     ctx.fillStyle = "orange"
+        //     ctx.fillRect(
+        //         -(this.attackBox.pos.x), 
+        //         -(this.attackBox.pos.y), 
+        //         -(this.attackBox.width), 
+        //         -(this.attackBox.height)
+        // )}
     }
 
     applyGravity() {
@@ -51,8 +53,18 @@ export default class Character {
 
     collideWithFloor() {
         const characterBase = this.pos.y + this.height + this.vel.y
-        if (characterBase >= 700) {
+        if (characterBase >= 574) {
             this.vel.y = 0
         }
     }
+
+    collideWith(otherObject) {
+        // placeholder
+    }
+
+    isCollidedWith(otherObject) {
+        //temp
+    }
+
+
 }

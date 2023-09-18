@@ -5,8 +5,8 @@ import Game from "./game";
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1500; // Game.DIM_X;
-canvas.height = 700; // Game.DIM_Y;
+canvas.width = 1000; // Game.DIM_X;
+canvas.height = 574; // Game.DIM_Y;
 
 // set background color
 ctx.fillStyle = 'grey';

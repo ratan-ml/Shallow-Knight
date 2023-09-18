@@ -6,7 +6,7 @@ export default class Game {
         this.player = new Player({
             pos: {
                 x: 0,
-                y: 700 - 250,
+                y: 574 - 250,
             },
             vel: {
                 x: 0,
@@ -31,8 +31,8 @@ export default class Game {
         this.ctx = ctx
     }
 
-    static DIM_X = 1500
-    static DIM_Y = 700
+    static DIM_X = 1000
+    static DIM_Y = 574
 
     add(object) {
         if (object instanceof Player) {
@@ -61,6 +61,28 @@ export default class Game {
         })
     }
 
+    checkCollisions() {
+        const allObjects = this.allObjects();
+        for (let i = 0; i < allObjects.length; i++) {
+            for (let j = 0; j < allObjects.length; j++) {
+                const obj1 = allObjects[i];
+                const obj2 = allObjects[j];
+                // console.log(obj1.isCollidedWith(obj2))
+                if (obj1 === obj2) continue
+
+                if (obj1.isCollidedWith(obj2)) {
+                    // console.log("collided")
+                //     const collision = obj1.collideWith(obj2);
+                //     if (collision) return;
+                }
+            }
+        }
+    }
+
+    step() {
+        this.updateObjects()
+        this.checkCollisions()
+    }
     // isOutofBounds(pos) {
     //     return (pos[0] < 0) || (pos[1] < 0) ||
     //     (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
@@ -81,7 +103,7 @@ export default class Game {
     
 
     animate() {
-        this.updateObjects()
+        this.step()
         this.draw()
         requestAnimationFrame(this.animate.bind(this))
     }

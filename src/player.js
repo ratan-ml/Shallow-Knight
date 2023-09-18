@@ -15,7 +15,7 @@ export default class Player extends Character{
         // this.isDashing = false
         this.initMovement()
         // this.jumpCount = 1
-        
+        this.attackDir = "rightFacing"
     }
 
     static atkWidth = 75
@@ -31,11 +31,11 @@ export default class Player extends Character{
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = true;
-                this.attackDir = "leftSide"
+                this.attackDir = "leftFacing"
                 break;
             case "ArrowRight":
                 this.isMovingRight = true;
-                this.attackDir = "rightSide"
+                this.attackDir = "rightFacing"
                 break;
             case "z":
                 // TODO: limit to one jump per floor contact
@@ -70,9 +70,9 @@ export default class Player extends Character{
             // case "z":
             //     this.isJumping = false
             //     break
-            // case "x":
-            //     this.isAttacking = false
-            //     break
+            case "x":
+                this.isAttacking = false
+                break
             // case "c":
             //     this.isDashing = false
             //     break
@@ -88,7 +88,12 @@ export default class Player extends Character{
             this.pos.x += 10
         }
         if (this.isAttacking) {
-            
+            if (this.attackDir === "rightFacing") {
+                this.attackBox.pos.x = this.pos.x + this.width
+                this.attackBox.pos.y = this.pos.y
+            } else {
+                this.attackBox.pos.x = this.pos.x - this.attackBox.width
+            }
         }
     }
 
