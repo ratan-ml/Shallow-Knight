@@ -6,4 +6,8 @@ export default class Boss extends Character {
         this.height = 250
         this.width = 100
     }
+
+    update() {
+        this.applyGravity()
+    }
 }

@@ -13,50 +13,21 @@ ctx.fillStyle = 'grey';
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // for testing purposes, will be put into game.js
-const game = new Game()
-
-const player = new Player({
-    pos: {
-        x: 0,
-        y: 576-250
-    },
-    vel: {
-        x: 0,
-        y: 0
-    },
-    game: game
-})
-player.draw(ctx)
-
-const boss = new Boss({
-    pos: {
-        x: (800/2)+(100/2),
-        y: 0
-    },
-    vel: {
-        x: 0,
-        y: 0
-    },
-    game: game
-
-})
-boss.draw(ctx)
+const game = new Game(ctx)
+game.play()
 
 
 
-const running = true
+// const running = true
 
-function animate() {
-    ctx.fillStyle = 'grey';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    player.animate(ctx)
-    boss.animate(ctx)
-    requestAnimationFrame(() => {if (running) return animate()})
-}
+// function animate() {
+//     game.draw(ctx)
+//     requestAnimationFrame(() => {if (running) return animate()})
+// }
 
-function play() {
+// function play() {
     
-    animate()
-}
+//     animate()
+// }
 
-play()
+// play()
