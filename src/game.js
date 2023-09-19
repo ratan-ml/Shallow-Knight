@@ -1,6 +1,7 @@
 import Player from "./player";
 import Boss from "./boss";
 import Projectile from "./projecticle";
+import Background from "./background";
 
 export default class Game {
     constructor(ctx) {
@@ -50,8 +51,9 @@ export default class Game {
     }
 
     draw() {
-        this.ctx.fillStyle = "grey";
-        this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+        this.drawBackground()
+        // this.ctx.fillStyle = "grey";
+        // this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
         this.allObjects().forEach((object) => {
             object.draw(this.ctx)
@@ -106,6 +108,10 @@ export default class Game {
 
     // depending on movement state, adjust player's x or y axis
     
+    drawBackground() {
+        const background = new Background()
+        return background.draw(this.ctx)
+    }
 
     animate() {
         this.step()
