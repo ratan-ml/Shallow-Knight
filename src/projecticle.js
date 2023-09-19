@@ -20,6 +20,7 @@ export default class Projectile {
 
     update() {
         // this.pos.x -= 5
+        this.pos[0] -= 5
     }
 
     isCollidedWith() {

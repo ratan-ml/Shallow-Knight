@@ -1,5 +1,6 @@
 fix attack
-- when performing jump, attack box appearance is not consistent
+-FIXED when performing jump, attack box appearance is not consistent
+    - mainly when leftfacing
 - attacking the boss once only reads one collision
 
 fix jump
@@ -16,6 +17,7 @@ work on projectiles
     - horizontal rectangle
     - bullets
 - get bullets to shoot from boss.pos
+    - it is being created but not shot out, prob proj class bug
     - in "x" interval
 
 decrement hp

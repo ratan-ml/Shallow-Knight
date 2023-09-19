@@ -75,7 +75,7 @@ export default class Game {
 
                 if (obj1.isCollidedWith(obj2)) {
                     console.log("collided")
-                //     const collision = obj1.collideWith(obj2);
+                    const collision = obj1.collideWith(obj2);
                 //     if (collision) return;
                         // if obj2 is Player, decrement hp
                         // implement invulnerability

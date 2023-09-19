@@ -14,16 +14,19 @@ export default class Boss extends Character {
     update() {
         this.applyGravity()
         // this.charge()
-        this.fireProjectile()
+        // bullets are being created, but not shooting
+        // this.fireProjectile() 
     }
 
     fireProjectile() {
         // create a projectile instance
         // 
-        const bullet = new Projectile({
-            pos: this.pos
-        })
-        this.game.add(bullet)
+        if (this.game.Projectile.length < 4) {
+            const bullet = new Projectile({
+                pos: this.pos // is pos pointing to this.pos?
+            })
+            this.game.add(bullet)
+        }
     }
 
     // moves boss from right to left and back to starting point
@@ -39,13 +42,22 @@ export default class Boss extends Character {
 
     collideWith(otherObject) {
         // if boss collides with player, decrement player hp
-            // otherObject.health -= 1
+        if (otherObject.health > 0) {
+            otherObject.health -= 1
+            console.log(otherObject.health)
+            otherObject.isInvulnerable = true
+            setTimeout(() => {
+                otherObject.isInvulnerable = false
+            }, 1000)
+        } else {
+            // restart
+        } 
     }
 
     // used in game.js to check for collision
     isCollidedWith(object) {
         // const distance = Util.dist(this.pos, object.pos)
-        if (object instanceof Player) {
+        if (object instanceof Player && !object.isInvulnerable) {
         // measurement for player
         const objectLeft = object.pos.x
         const objectRight = objectLeft + object.width

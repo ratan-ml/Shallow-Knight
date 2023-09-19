@@ -32,10 +32,10 @@ export default class Character {
             // attack box dir changes depending on if left or right arrow key is pressed
             if (this.attackDir === "rightFacing") {
                 this.attackBox.pos.x = this.pos.x + this.width
-                this.attackBox.pos.y = this.pos.y
             } else {
                 this.attackBox.pos.x = this.pos.x - this.attackBox.width
             }
+            this.attackBox.pos.y = this.pos.y
 
             ctx.fillStyle = "orange"
             ctx.fillRect(

@@ -16,6 +16,8 @@ export default class Player extends Character{
         this.initMovement()
         // this.jumpCount = 1
         this.attackDir = "rightFacing"
+
+        this.isInvulnerable = false
     }
 
     // static atkWidth = 75
@@ -78,7 +80,7 @@ export default class Player extends Character{
 
     update() {
         this.applyGravity()
-        if (this.isMovingLeft) {
+        if (this.isMovingLeft && !this.game.isOutofBounds(this.pos)) {
             this.pos.x -= 10
         }
         if (this.isMovingRight) {
@@ -88,7 +90,7 @@ export default class Player extends Character{
 
     attack() {
         this.isAttacking = true
-        setInterval(()=> {
+        setTimeout(()=> {
             // console.log(this.isAttacking)
             this.isAttacking = false
         }, 1000)
