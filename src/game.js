@@ -1,11 +1,12 @@
 import Player from "./player";
 import Boss from "./boss";
+import Projectile from "./projecticle";
 
 export default class Game {
     constructor(ctx) {
         this.player = new Player({
             pos: {
-                x: 0,
+                x: 25,
                 y: 574 - 250,
             },
             vel: {
@@ -17,7 +18,7 @@ export default class Game {
         });
         this.boss = new Boss({
             pos: {
-                x: 450,
+                x: 875,
                 y: 0,
             },
             vel: {
@@ -39,11 +40,13 @@ export default class Game {
             this.player.push(object)
         } else if (object instanceof Boss) {
             this.boss.push(object)
+        } else if (object instanceof Projectile) {
+            this.projectiles.push(object)
         }
     }
     
     allObjects() {
-        return [this.player, this.boss] // this.projectiles
+        return [this.player, this.boss, ...this.projectiles] 
     }
 
     draw() {
@@ -85,10 +88,10 @@ export default class Game {
         this.updateObjects()
         this.checkCollisions()
     }
-    // isOutofBounds(pos) {
-    //     return (pos[0] < 0) || (pos[1] < 0) ||
-    //     (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
-    // }
+    isOutofBounds(pos) {
+        return (pos[0] < 0) || (pos[1] < 0) ||
+        (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
+    }
 
     play() {
         this.running = true

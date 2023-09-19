@@ -44,15 +44,6 @@ export default class Character {
                 this.attackBox.width, 
                 this.attackBox.height)
         }
-        
-        // } else {
-        //     ctx.fillStyle = "orange"
-        //     ctx.fillRect(
-        //         -(this.attackBox.pos.x), 
-        //         -(this.attackBox.pos.y), 
-        //         -(this.attackBox.width), 
-        //         -(this.attackBox.height)
-        // )}
     }
 
     applyGravity() {

@@ -89,7 +89,7 @@ export default class Player extends Character{
     attack() {
         this.isAttacking = true
         setInterval(()=> {
-            console.log(this.isAttacking)
+            // console.log(this.isAttacking)
             this.isAttacking = false
         }, 1000)
     }
@@ -103,7 +103,7 @@ export default class Player extends Character{
         const objectTop = object.pos.y
         const objectBottom = objectTop + object.height
         // measurement for atkBox
-        console.log(this.attackBox.pos.x)
+        // console.log(this.attackBox.pos.x)
         const atkBoxLeft = this.attackBox.pos.x
         const atkBoxRight = this.attackBox.pos.x + this.attackBox.width
         const atkBoxTop = this.attackBox.pos.y
