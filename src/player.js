@@ -1,5 +1,5 @@
 import Character from "./character"
-
+import Boss from "./boss"
 
 export default class Player extends Character{
     constructor(options) {
@@ -10,7 +10,7 @@ export default class Player extends Character{
 
         this.isMovingLeft = false
         this.isMovingRight = false
-        // this.isJumping = false
+
         this.isAttacking = false
         // this.isDashing = false
         this.initMovement()
@@ -18,8 +18,8 @@ export default class Player extends Character{
         this.attackDir = "rightFacing"
     }
 
-    static atkWidth = 75
-    static atkHeight = 50
+    // static atkWidth = 75
+    // static atkHeight = 50
 
     initMovement() {
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
@@ -51,7 +51,7 @@ export default class Player extends Character{
                 // console.log(this.jumpCount)
                 break;
             case "x":
-                this.isAttacking = true;
+                this.attack();
                 break;
             // case "c":
             //     this.isDashing = true
@@ -67,9 +67,6 @@ export default class Player extends Character{
             case "ArrowRight":
                 this.isMovingRight = false
                 break
-            // case "z":
-            //     this.isJumping = false
-            //     break
             case "x":
                 this.isAttacking = false
                 break
@@ -87,21 +84,41 @@ export default class Player extends Character{
         if (this.isMovingRight) {
             this.pos.x += 10
         }
-        if (this.isAttacking) {
-            if (this.attackDir === "rightFacing") {
-                this.attackBox.pos.x = this.pos.x + this.width
-                this.attackBox.pos.y = this.pos.y
-            } else {
-                this.attackBox.pos.x = this.pos.x - this.attackBox.width
-            }
+    }
+
+    attack() {
+        this.isAttacking = true
+        setInterval(()=> {
+            console.log(this.isAttacking)
+            this.isAttacking = false
+        }, 1000)
+    }
+
+    // used in game.js to check for collision
+    isCollidedWith(object) {
+        if (object instanceof Boss) {
+        // measurement for boss
+        const objectLeft = object.pos.x
+        const objectRight = objectLeft + object.width
+        const objectTop = object.pos.y
+        const objectBottom = objectTop + object.height
+        // measurement for atkBox
+        console.log(this.attackBox.pos.x)
+        const atkBoxLeft = this.attackBox.pos.x
+        const atkBoxRight = this.attackBox.pos.x + this.attackBox.width
+        const atkBoxTop = this.attackBox.pos.y
+        const atkBoxBottom = this.attackBox.pos.y + this.attackBox.height
+        
+        return (
+        // checks if atk's width overlaps with boss's width
+        ((atkBoxLeft >= objectLeft && atkBoxLeft <= objectRight) ||
+        (atkBoxRight >= objectLeft && atkBoxRight <= objectRight)) &&
+        // checks if ark's height overlaps with boss's height
+        ((atkBoxTop >= objectTop && atkBoxTop <= objectBottom) ||
+        (atkBoxBottom >= objectTop && atkBoxBottom <= objectBottom)) &&
+        this.isAttacking
+        ) 
+        
         }
     }
-
-    // attack
-        // create attack box
-        // check if collide with boss box
-    attack (ctx) {
-
-    }
-    // jump
 }

@@ -9,6 +9,7 @@ export default class Character {
         this.height = options.height
         this.width = options.width
         this.game = options.game
+        this.isAttacking = false
         this.attackBox = {
             pos: {
                 x: this.pos.x + this.width,
@@ -17,23 +18,33 @@ export default class Character {
             height: 50,
             width: 75
         }
-        this.attackDir = null // change attack box dir depending on last key
+        this.attackDir = null // change attack box dir depending on last key?
     }
 
     draw(ctx) {
         ctx.fillStyle = "red"
         ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
 
-        // FIX: not updating with this.pos
-        // console.log(this.attackDir === "rightSide")
-        // if (this.attackDir === "rightSide") {
-            // console.log(this.pos.x)
-        ctx.fillStyle = "orange"
-        ctx.fillRect(
-            this.attackBox.pos.x, 
-            this.attackBox.pos.y,
-            this.attackBox.width, 
-            this.attackBox.height)
+        // display attack only when attack key is pressed
+        // TODO/FIX: implement throttle
+        // attack box needs to stay for x frames then be removed
+        if (this.isAttacking) {
+            // attack box dir changes depending on if left or right arrow key is pressed
+            if (this.attackDir === "rightFacing") {
+                this.attackBox.pos.x = this.pos.x + this.width
+                this.attackBox.pos.y = this.pos.y
+            } else {
+                this.attackBox.pos.x = this.pos.x - this.attackBox.width
+            }
+
+            ctx.fillStyle = "orange"
+            ctx.fillRect(
+                this.attackBox.pos.x, 
+                this.attackBox.pos.y,
+                this.attackBox.width, 
+                this.attackBox.height)
+        }
+        
         // } else {
         //     ctx.fillStyle = "orange"
         //     ctx.fillRect(

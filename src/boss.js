@@ -31,14 +31,14 @@ export default class Boss extends Character {
         if (object instanceof Player) {
         // measurement for player
         const objectLeft = object.pos.x
-        const objectRight = object.pos.x + object.width
+        const objectRight = objectLeft + object.width
         const objectTop = object.pos.y
-        const objectBottom = object.pos.y + object.height
+        const objectBottom = objectTop + object.height
         // measurement for boss
         const bossLeft = this.pos.x
-        const bossRight = this.pos.x + this.width
+        const bossRight = bossLeft + this.width
         const bossTop = this.pos.y
-        const bossBottom = this.pos.y + this.height
+        const bossBottom = bossTop + this.height
         
         return (
         // checks if object's width overlaps with boss's width
@@ -47,7 +47,6 @@ export default class Boss extends Character {
         // checks if object's height overlaps with boss's height
         ((objectTop >= bossTop && objectTop <= bossBottom) ||
         (objectBottom >= bossTop && objectBottom <= bossBottom))
-
         ) 
         }
     }
