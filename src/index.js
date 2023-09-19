@@ -17,17 +17,3 @@ const game = new Game(ctx)
 game.play()
 
 
-
-// const running = true
-
-// function animate() {
-//     game.draw(ctx)
-//     requestAnimationFrame(() => {if (running) return animate()})
-// }
-
-// function play() {
-    
-//     animate()
-// }
-
-// play()

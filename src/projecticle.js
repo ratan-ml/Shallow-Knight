@@ -11,11 +11,7 @@ export default class Projectile {
     draw(ctx) {
         // bullet
         ctx.fillStyle = "pink";
-        ctx.beginPath();
-        ctx.arc(
-          this.pos[0], this.pos[1], 5, 0, 2 * Math.PI, true
-        );
-        ctx.fill();
+        ctx.fillRect(this.pos.x, this.pos.y, 25, 25);
     }
 
     update() {

@@ -18,6 +18,7 @@ export default class Player extends Character{
         this.attackDir = "rightFacing"
 
         this.isInvulnerable = false
+        this.handleKeyX = this.handleKeyX.bind(this)
     }
 
     // static atkWidth = 75
@@ -26,6 +27,7 @@ export default class Player extends Character{
     initMovement() {
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
         document.addEventListener("keyup", this.handleKeyUp.bind(this))
+        document.addEventListener("keydown", this.handleKeyX.bind(this))
     }
 
     handleKeyDown(event) {
@@ -52,12 +54,24 @@ export default class Player extends Character{
                 // if (this.vel.y === 0) this.jumpCount = 1
                 // console.log(this.jumpCount)
                 break;
-            case "x":
-                this.attack();
-                break;
+            // case "x":
+            //     this.isAttacking = true
+            //     break;
             // case "c":
             //     this.isDashing = true
             //     break
+        }
+    }
+
+    handleKeyX(event) {
+        
+        if (event.key === "x" && this.isAttacking === false) {
+            document.removeEventListener("keydown", this.handKeyX)
+            this.isAttacking = true
+            setTimeout(() => {
+                this.isAttacking = false
+                document.addEventListener("keydown", this.handleKeyX)
+            }, 2000)
         }
     }
 
@@ -70,7 +84,8 @@ export default class Player extends Character{
                 this.isMovingRight = false
                 break
             case "x":
-                this.isAttacking = false
+                // this.isAttacking = false
+                
                 break
             // case "c":
             //     this.isDashing = false
@@ -80,6 +95,8 @@ export default class Player extends Character{
 
     update() {
         this.applyGravity()
+        // console.log(!this.game.isOutofBounds(this.pos))
+        // FIX: out of bounds
         if (this.isMovingLeft && !this.game.isOutofBounds(this.pos)) {
             this.pos.x -= 10
         }
@@ -88,13 +105,10 @@ export default class Player extends Character{
         }
     }
 
-    attack() {
-        this.isAttacking = true
-        setTimeout(()=> {
-            // console.log(this.isAttacking)
-            this.isAttacking = false
-        }, 1000)
-    }
+    // attack() {
+    //     this.isAttacking = true
+
+    // }
 
     // used in game.js to check for collision
     isCollidedWith(object) {

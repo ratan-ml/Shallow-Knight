@@ -21,12 +21,18 @@ export default class Boss extends Character {
     fireProjectile() {
         // create a projectile instance
         // 
-        if (this.game.Projectile.length < 4) {
+        if (this.game.projectiles.length < 4) {
             const bullet = new Projectile({
-                pos: this.pos // is pos pointing to this.pos?
+                pos: {
+                    x: this.pos.x,
+                    y: this.pos.y
+                    } 
             })
-            this.game.add(bullet)
+            setInterval(() => {
+                this.game.add(bullet)
+            }, 2000)
         }
+        // console.log(this.game.projectiles)
     }
 
     // moves boss from right to left and back to starting point
@@ -44,7 +50,7 @@ export default class Boss extends Character {
         // if boss collides with player, decrement player hp
         if (otherObject.health > 0) {
             otherObject.health -= 1
-            console.log(otherObject.health)
+            // console.log(`lives:${otherObject.health}`)
             otherObject.isInvulnerable = true
             setTimeout(() => {
                 otherObject.isInvulnerable = false

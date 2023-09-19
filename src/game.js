@@ -47,6 +47,7 @@ export default class Game {
     }
     
     allObjects() {
+        console.log()
         return [this.player, this.boss, ...this.projectiles] 
     }
 
@@ -105,6 +106,8 @@ export default class Game {
         // this.player = new Player
         // this.level = level 1
     }
+
+
 
     // depending on movement state, adjust player's x or y axis
     
