@@ -14,3 +14,17 @@ img {
 ul {
   list-style-type: none;
 }
+
+body div {
+  position: relative;
+}
+body div #player-health {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+body div #timer {
+  position: absolute;
+  top: 10px;
+  left: 80%;
+}

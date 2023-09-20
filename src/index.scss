@@ -18,3 +18,20 @@ img {
 ul {
     list-style-type: none
 }
+
+body {
+    div {
+        position: relative;
+        #player-health {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        #timer {
+            position: absolute;
+            top: 10px;
+            left: 80%;
+        }
+    }
+    
+}

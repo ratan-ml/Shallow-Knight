@@ -21,11 +21,34 @@ export default class Character {
         this.attackDir = null // change attack box dir depending on last key?
         this.isInvulnerable = false
         this.health = null
+
+        this.image = new Image()
+        this.framesMax = options.framesMax
+        this.frameX = options.frameX
+        this.frameY = options.frameY
+        this.frameWidth = options.frameWidth
+        this.frameHeight = options.frameHeight
+
+        this.framesElapsed = 0
+        this.framesHold = 4
     }
 
     draw(ctx) {
-        ctx.fillStyle = "red"
-        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
+        ctx.drawImage(
+            this.image, 
+            this.frameX, 
+            this.frameY, 
+            this.frameWidth, 
+            this.frameHeight,
+            this.pos.x, 
+            this.pos.y + 6, // offset +6
+            this.width * 3, // scale *3
+            this.height
+            )
+        
+
+        // ctx.fillStyle = "red"
+        // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
 
         // attack box dir changes depending on if left or right arrow key is pressed
         if (this.attackDir === "rightFacing") {
@@ -79,6 +102,17 @@ export default class Character {
 
     isCollidedWith(otherObject) {
         //temp
+    }
+
+    animateFrames() {
+        this.framesElapsed++
+        if (this.framesElapsed % this.framesHold === 0) {
+            if (this.frameX < this.framesMax - 1) {
+                this.frameX++
+            } else {
+                this.frameX = 0
+            }
+        }
     }
 
 

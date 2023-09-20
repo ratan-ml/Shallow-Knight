@@ -50,7 +50,12 @@ export default class Boss extends Character {
         // if boss collides with player, decrement player hp
         if (otherObject.health > 0) {
             otherObject.health -= 1
+            const playerHP = document.querySelector("#player-health")
+            const heart = playerHP.querySelector("img:last-child")
+            playerHP.removeChild(heart)
+            // console.log(playerHP)
             console.log(`lives:${otherObject.health}`)
+
             otherObject.isInvulnerable = true
             setTimeout(() => {
                 otherObject.isInvulnerable = false

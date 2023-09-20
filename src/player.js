@@ -1,6 +1,8 @@
 import Character from "./character"
 import Boss from "./boss"
 
+const imgSrc = "assets/game/player/player-sprite.png"
+
 export default class Player extends Character{
     constructor(options) {
         super(options)
@@ -14,11 +16,11 @@ export default class Player extends Character{
         this.isAttacking = false
         // this.isDashing = false
         this.initMovement()
-        this.jumpCount = 2
+        // this.jumpCount = 2
         this.attackDir = "rightFacing"
 
-        // this.handleKeyX = this.handleKeyX.bind(this)
         this.action = true
+        this.image.src = imgSrc
     }
 
 
@@ -26,7 +28,6 @@ export default class Player extends Character{
     initMovement() {
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
         document.addEventListener("keyup", this.handleKeyUp.bind(this))
-        // document.addEventListener("keydown", this.handleKeyX.bind(this))
     }
 
     handleKeyDown(event) {
@@ -89,6 +90,7 @@ export default class Player extends Character{
 
     update() {
         this.applyGravity()
+        this.animateFrames()
         // check of boundary
         if (this.pos.x < 0) {
             this.pos.x = 0;

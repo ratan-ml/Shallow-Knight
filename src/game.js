@@ -15,7 +15,13 @@ export default class Game {
                 y: 0,
             },
             game: this,
-            health: 3
+            health: 3,
+            framesMax: 4,
+            frameX: 0,
+            frameY: 0,
+            frameWidth: 50, // according to download source
+            frameHeight: 37 // according to download source
+
         });
         this.boss = new Boss({
             pos: {
