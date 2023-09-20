@@ -50,13 +50,13 @@ export default class Boss extends Character {
         // if boss collides with player, decrement player hp
         if (otherObject.health > 0) {
             otherObject.health -= 1
-            // console.log(`lives:${otherObject.health}`)
+            console.log(`lives:${otherObject.health}`)
             otherObject.isInvulnerable = true
             setTimeout(() => {
                 otherObject.isInvulnerable = false
             }, 1000)
         } else {
-            // restart
+            // console.log("dead")
         } 
     }
 

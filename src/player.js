@@ -17,17 +17,16 @@ export default class Player extends Character{
         // this.jumpCount = 1
         this.attackDir = "rightFacing"
 
-        this.isInvulnerable = false
-        this.handleKeyX = this.handleKeyX.bind(this)
+        // this.handleKeyX = this.handleKeyX.bind(this)
+        this.action = true
     }
 
-    // static atkWidth = 75
-    // static atkHeight = 50
+
 
     initMovement() {
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
         document.addEventListener("keyup", this.handleKeyUp.bind(this))
-        document.addEventListener("keydown", this.handleKeyX.bind(this))
+        // document.addEventListener("keydown", this.handleKeyX.bind(this))
     }
 
     handleKeyDown(event) {
@@ -54,26 +53,30 @@ export default class Player extends Character{
                 // if (this.vel.y === 0) this.jumpCount = 1
                 // console.log(this.jumpCount)
                 break;
-            // case "x":
-            //     this.isAttacking = true
-            //     break;
+            case "x":
+                if (this.action) {
+                    this.action = false
+                    this.attack()
+                    // this.isAttacking = true
+                }
+                break;
             // case "c":
             //     this.isDashing = true
             //     break
         }
     }
 
-    handleKeyX(event) {
-        
-        if (event.key === "x" && this.isAttacking === false) {
-            document.removeEventListener("keydown", this.handKeyX)
-            this.isAttacking = true
-            setTimeout(() => {
-                this.isAttacking = false
-                document.addEventListener("keydown", this.handleKeyX)
-            }, 2000)
-        }
-    }
+    // handleKeyX(event) {
+        // Paulo test
+        // if (event.key === "x" && this.isAttacking === false) {
+        //     document.removeEventListener("keydown", this.handKeyX)
+        //     this.isAttacking = true
+        //     setTimeout(() => {
+        //         this.isAttacking = false
+        //         document.addEventListener("keydown", this.handleKeyX)
+        //     }, 2000)
+    //     }
+    // }
 
     handleKeyUp(event) {
         switch (event.key) {
@@ -84,8 +87,8 @@ export default class Player extends Character{
                 this.isMovingRight = false
                 break
             case "x":
-                // this.isAttacking = false
-                
+                this.isAttacking = false
+                this.action = true
                 break
             // case "c":
             //     this.isDashing = false
@@ -105,14 +108,30 @@ export default class Player extends Character{
         }
     }
 
-    // attack() {
-    //     this.isAttacking = true
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 500)
+    }
 
-    // }
+    collideWith(otherObject) {
+        // if attack collides with boss, decrement boss hp
+        if (otherObject.health > 0) {
+            otherObject.health -= 1
+            console.log(`boss lives:${otherObject.health}`)
+            otherObject.isInvulnerable = true
+            setTimeout(() => {
+                otherObject.isInvulnerable = false
+            }, 1000)
+        } else {
+            // console.log("dead")
+        } 
+    }
 
     // used in game.js to check for collision
     isCollidedWith(object) {
-        if (object instanceof Boss) {
+        if (object instanceof Boss && !object.isInvulnerable) {
         // measurement for boss
         const objectLeft = object.pos.x
         const objectRight = objectLeft + object.width

@@ -19,24 +19,23 @@ export default class Character {
             width: 75
         }
         this.attackDir = null // change attack box dir depending on last key?
+        this.isInvulnerable = false
+        this.health = null
     }
 
     draw(ctx) {
         ctx.fillStyle = "red"
         ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
 
+        // attack box dir changes depending on if left or right arrow key is pressed
+        if (this.attackDir === "rightFacing") {
+            this.attackBox.pos.x = this.pos.x + this.width
+        } else {
+            this.attackBox.pos.x = this.pos.x - this.attackBox.width
+        }
+        this.attackBox.pos.y = this.pos.y
         // display attack only when attack key is pressed
-        // TODO/FIX: implement throttle
-        // attack box needs to stay for x frames then be removed
         if (this.isAttacking) {
-            // attack box dir changes depending on if left or right arrow key is pressed
-            if (this.attackDir === "rightFacing") {
-                this.attackBox.pos.x = this.pos.x + this.width
-            } else {
-                this.attackBox.pos.x = this.pos.x - this.attackBox.width
-            }
-            this.attackBox.pos.y = this.pos.y
-
             ctx.fillStyle = "orange"
             ctx.fillRect(
                 this.attackBox.pos.x, 
@@ -44,6 +43,14 @@ export default class Character {
                 this.attackBox.width, 
                 this.attackBox.height)
         }
+
+        ctx.save()
+        ctx.textAlign = "center"
+        ctx.font = "10px"
+        ctx.fillText(this.health, 
+            this.pos.x + this.width * 0.5, 
+            this.pos.y)
+        ctx.restore()
     }
 
     applyGravity() {
