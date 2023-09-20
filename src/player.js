@@ -14,7 +14,7 @@ export default class Player extends Character{
         this.isAttacking = false
         // this.isDashing = false
         this.initMovement()
-        // this.jumpCount = 1
+        this.jumpCount = 2
         this.attackDir = "rightFacing"
 
         // this.handleKeyX = this.handleKeyX.bind(this)
@@ -45,19 +45,21 @@ export default class Player extends Character{
                 // ISSUE: buffer/lag on resetting jump when contacting floor
                 // console.log(this.jumpCount)
                 // if (this.jumpCount > 0) {
-                    this.vel.y = -15
-                    // this.jumpCount = 0
+                this.vel.y = -15
+                //     this.jumpCount--
                 // }
                 // console.log(this.jumpCount)
                 // console.log(this.vel.y === 0)
-                // if (this.vel.y === 0) this.jumpCount = 1
+                // if ((this.pos.y + this.height / 2) > (574 - this.height) ) this.jumpCount = 1
                 // console.log(this.jumpCount)
                 break;
             case "x":
                 if (this.action) {
                     this.action = false
                     this.attack()
-                    // this.isAttacking = true
+                    setTimeout(() => {
+                        this.action = true
+                    }, 750)
                 }
                 break;
             // case "c":
@@ -66,30 +68,19 @@ export default class Player extends Character{
         }
     }
 
-    // handleKeyX(event) {
-        // Paulo test
-        // if (event.key === "x" && this.isAttacking === false) {
-        //     document.removeEventListener("keydown", this.handKeyX)
-        //     this.isAttacking = true
-        //     setTimeout(() => {
-        //         this.isAttacking = false
-        //         document.addEventListener("keydown", this.handleKeyX)
-        //     }, 2000)
-    //     }
-    // }
-
     handleKeyUp(event) {
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = false
+                this.vel.x = 0
                 break
             case "ArrowRight":
                 this.isMovingRight = false
+                this.vel.x = 0
                 break
-            case "x":
-                this.isAttacking = false
-                this.action = true
-                break
+            // case "x":
+            //     this.action = true
+            //     break
             // case "c":
             //     this.isDashing = false
             //     break
@@ -98,13 +89,19 @@ export default class Player extends Character{
 
     update() {
         this.applyGravity()
-        // console.log(!this.game.isOutofBounds(this.pos))
-        // FIX: out of bounds
-        if (this.isMovingLeft && !this.game.isOutofBounds(this.pos)) {
-            this.pos.x -= 10
+        // check of boundary
+        if (this.pos.x < 0) {
+            this.pos.x = 0;
+            this.vel.x = 0;
+        } else if (this.pos.x > 1000 - this.width) {
+            this.pos.x = 1000 - this.width;
+            this.vel.x = 0;
         }
-        if (this.isMovingRight) {
-            this.pos.x += 10
+        // Move left/right
+        if (this.isMovingLeft) {
+            this.vel.x = -10;
+        } else if (this.isMovingRight) {
+            this.vel.x = 10;
         }
     }
 
@@ -112,7 +109,7 @@ export default class Player extends Character{
         this.isAttacking = true
         setTimeout(() => {
             this.isAttacking = false
-        }, 500)
+        }, 250)
     }
 
     collideWith(otherObject) {

@@ -55,6 +55,7 @@ export default class Character {
 
     applyGravity() {
         // apply gravity
+        this.pos.x += this.vel.x
         this.pos.y += this.vel.y
         this.vel.y += CONSTANTS.GRAVITY
         this.collideWithFloor()
@@ -65,6 +66,11 @@ export default class Character {
         if (characterBase >= 574) {
             this.vel.y = 0
         }
+    }
+
+    isOutofBounds(pos) {
+        return (pos[0] < 0) || (pos[1] < 0) ||
+        (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
     }
 
     collideWith(otherObject) {
