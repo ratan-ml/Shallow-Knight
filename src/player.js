@@ -2,12 +2,13 @@ import Character from "./character"
 import Boss from "./boss"
 
 const imgSrc = "assets/game/player/player-sprite.png"
+const flippedImgSrc = "assets/game/player/flipped-player-sprite.png"
 
 export default class Player extends Character{
     constructor(options) {
         super(options)
-        this.height = 150
-        this.width = 50
+        this.height = 123
+        this.width = 47
         this.health = 3
 
         this.isMovingLeft = false
@@ -15,15 +16,29 @@ export default class Player extends Character{
 
         this.isAttacking = false
         // this.isDashing = false
-        this.initMovement()
+        if (!this.isDead) {
+            this.initMovement()
+        }
         // this.jumpCount = 2
         this.attackDir = "rightFacing"
-
         this.action = true
+
         this.image.src = imgSrc
+        this.animationStates = [
+            { name: "idle", frames: 4 },
+            { name: "walk", frames: 6 },
+            { name: "jump", frames: 10 },
+            { name: "glow", frames: 9 },
+            { name: "attack1", frames: 10 },
+            { name: "attack2", frames: 6 },
+            { name: "death", frames: 6 },
+            { name: "dash1", frames: 5 },
+            { name: "dash2", frames: 5 },
+            { name: "takeHit", frames: 4}
+        ]
+        this.cycleFrames()
+        this.isDead = false
     }
-
-
 
     initMovement() {
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
@@ -31,15 +46,20 @@ export default class Player extends Character{
     }
 
     handleKeyDown(event) {
-        // console.log(event.key)
+        // can't attack from the dead
+        if (this.health === 0) return
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = true;
                 this.attackDir = "leftFacing"
+                this.image.src = flippedImgSrc
+                this.switchState("walk")
                 break;
             case "ArrowRight":
                 this.isMovingRight = true;
                 this.attackDir = "rightFacing"
+                this.image.src = imgSrc
+                this.switchState("walk")
                 break;
             case "z":
                 // TODO: limit to one jump per floor contact
@@ -47,6 +67,8 @@ export default class Player extends Character{
                 // console.log(this.jumpCount)
                 // if (this.jumpCount > 0) {
                 this.vel.y = -15
+                // this.playerState = "jump"
+                this.switchState("jump")
                 //     this.jumpCount--
                 // }
                 // console.log(this.jumpCount)
@@ -73,10 +95,12 @@ export default class Player extends Character{
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = false
+                this.switchState("idle")
                 this.vel.x = 0
                 break
             case "ArrowRight":
                 this.isMovingRight = false
+                this.switchState("idle")
                 this.vel.x = 0
                 break
             // case "x":
@@ -87,11 +111,23 @@ export default class Player extends Character{
             //     break
         }
     }
-
+    cycleFrames() {
+        this.animationStates.forEach((state, index) => {
+            let frames = {
+                loc: [],
+            }
+            for (let j = 0; j < state.frames; j++) {
+                let positionX = j * this.frameWidth
+                let positionY = index * this.frameHeight
+                frames.loc.push({x: positionX, y: positionY})
+            }
+            this.spriteAnimations[state.name] = frames
+        })
+    }
     update() {
         this.applyGravity()
         this.animateFrames()
-        // check of boundary
+        // check boundary
         if (this.pos.x < 0) {
             this.pos.x = 0;
             this.vel.x = 0;
@@ -99,19 +135,47 @@ export default class Player extends Character{
             this.pos.x = 1000 - this.width;
             this.vel.x = 0;
         }
+
+        // can only move when alive
+        if (this.health > 0) {
         // Move left/right
-        if (this.isMovingLeft) {
-            this.vel.x = -10;
-        } else if (this.isMovingRight) {
-            this.vel.x = 10;
+            if (this.isMovingLeft) {
+                this.vel.x = -10;
+            } else if (this.isMovingRight) {
+                this.vel.x = 10;
+            }
+        } else {
+            this.playerState = "death"
+        }
+    }
+
+    // ensures attack animation is completed
+    switchState(state) {
+        if (this.playerState === "attack2" &&
+        !this.action && 
+        this.framesElapsed < this.framesMax - 1) return
+        switch (state) {
+            case "walk":
+                this.playerState = "walk"
+                break
+            case "idle":
+                this.playerState = "idle"
+                break
+            case "jump":
+                this.playerState = "jump"
+                break
         }
     }
 
     attack() {
         this.isAttacking = true
+        this.playerState = "attack2"
+        this.staggerFrames = 5
         setTimeout(() => {
             this.isAttacking = false
-        }, 250)
+            this.playerState = "idle"
+            this.staggerFrames = 10
+        }, 500)
     }
 
     collideWith(otherObject) {
@@ -155,4 +219,6 @@ export default class Player extends Character{
         
         }
     }
+
+
 }

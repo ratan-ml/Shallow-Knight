@@ -15,8 +15,8 @@ export default class Character {
                 x: this.pos.x + this.width,
                 y: this.pos.y
             },
-            height: 50,
-            width: 75
+            height: 75,
+            width: 56
         }
         this.attackDir = null // change attack box dir depending on last key?
         this.isInvulnerable = false
@@ -30,25 +30,14 @@ export default class Character {
         this.frameHeight = options.frameHeight
 
         this.framesElapsed = 0
-        this.framesHold = 4
+        this.staggerFrames = 10
+        this.playerState = "idle"
+        this.spriteAnimations = []
     }
 
     draw(ctx) {
-        ctx.drawImage(
-            this.image, 
-            this.frameX, 
-            this.frameY, 
-            this.frameWidth, 
-            this.frameHeight,
-            this.pos.x, 
-            this.pos.y + 6, // offset +6
-            this.width * 3, // scale *3
-            this.height
-            )
-        
-
-        // ctx.fillStyle = "red"
-        // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
+        ctx.fillStyle = "red"
+        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
 
         // attack box dir changes depending on if left or right arrow key is pressed
         if (this.attackDir === "rightFacing") {
@@ -56,17 +45,33 @@ export default class Character {
         } else {
             this.attackBox.pos.x = this.pos.x - this.attackBox.width
         }
-        this.attackBox.pos.y = this.pos.y
+        this.attackBox.pos.y = this.pos.y + 5 // offset to align with attack
+        
         // display attack only when attack key is pressed
-        if (this.isAttacking) {
-            ctx.fillStyle = "orange"
-            ctx.fillRect(
-                this.attackBox.pos.x, 
-                this.attackBox.pos.y,
-                this.attackBox.width, 
-                this.attackBox.height)
-        }
+        // if (this.isAttacking) {
+            // ctx.fillStyle = "orange"
+            // ctx.fillRect(
+            //     this.attackBox.pos.x, 
+            //     this.attackBox.pos.y,
+            //     this.attackBox.width, 
+            //     this.attackBox.height)
+        // }
 
+        ctx.drawImage(
+            this.image, 
+            this.frameX, 
+            this.frameY, 
+            this.frameWidth, 
+            this.frameHeight,
+            this.pos.x - 50, // offset to align left to hitbox
+            this.pos.y - 20, // offset
+            this.width * 3 + 12, // scale
+            this.height + 27 // scale
+            )
+
+
+
+        // temp hp display on top of character
         ctx.save()
         ctx.textAlign = "center"
         ctx.font = "10px"
@@ -97,22 +102,19 @@ export default class Character {
     }
 
     collideWith(otherObject) {
-        // placeholder
+        // default do nothing
     }
 
     isCollidedWith(otherObject) {
-        //temp
+        // default do nothing
     }
 
     animateFrames() {
+        let pos = Math.floor(this.framesElapsed/this.staggerFrames) % 
+        this.spriteAnimations[this.playerState].loc.length
+        this.frameX = this.frameWidth * pos
+        this.frameY = this.spriteAnimations[this.playerState].loc[pos].y
         this.framesElapsed++
-        if (this.framesElapsed % this.framesHold === 0) {
-            if (this.frameX < this.framesMax - 1) {
-                this.frameX++
-            } else {
-                this.frameX = 0
-            }
-        }
     }
 
 

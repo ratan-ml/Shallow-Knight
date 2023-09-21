@@ -53,15 +53,25 @@ export default class Boss extends Character {
             const playerHP = document.querySelector("#player-health")
             const heart = playerHP.querySelector("img:last-child")
             playerHP.removeChild(heart)
-            // console.log(playerHP)
             console.log(`lives:${otherObject.health}`)
 
             otherObject.isInvulnerable = true
+            otherObject.playerState = "takeHit"
+            const takeHit = setInterval(() => {
+                otherObject.playerState = "takeHit"
+            }, 250)
+            setTimeout(() => {
+                clearInterval(takeHit)
+                otherObject.playerState = "idle"
+            }, 500)
             setTimeout(() => {
                 otherObject.isInvulnerable = false
+
             }, 1000)
         } else {
             // console.log("dead")
+            otherObject.playerState = "death"
+            otherObject.isDead = true
         } 
     }
 
