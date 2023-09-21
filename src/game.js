@@ -94,10 +94,7 @@ export default class Game {
         this.updateObjects()
         this.checkCollisions()
     }
-    isOutofBounds(pos) {
-        return (pos[0] < 0) || (pos[1] < 0) ||
-        (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
-    }
+
 
     play() {
         this.running = true

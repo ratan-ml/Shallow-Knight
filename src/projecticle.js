@@ -6,6 +6,7 @@
 export default class Projectile {
     constructor(options) {
         this.pos = options.pos
+        this.vel = options.vel
     }
 
     draw(ctx) {
@@ -16,7 +17,8 @@ export default class Projectile {
 
     update() {
         // this.pos.x -= 5
-        this.pos[0] -= 5
+        this.pos.x += this.vel.x
+        this.vel.x = -5
     }
 
     isCollidedWith() {

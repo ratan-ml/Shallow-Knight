@@ -9,14 +9,29 @@ export default class Boss extends Character {
         this.width = 100
         this.health = 20
         this.velX = 10
+        this.attackQueue = [
+            "charge",
+            "projectile"
+        ]
+        this.action = true
+        this.stop = false
     }
 
     update() {
         this.applyGravity()
+        // if(this.stop){
+        //     setTimeout(()=>{
+        //         this.stop = false
+        //     }, 2000)
+        // }
+
+        setTimeout(() => {
+            this.attack(this.sample(this.attackQueue))
+        }, 1000)
         // this.charge()
         // this.fireProjectile() 
             // boss start from the top and drops
-            // therefor bullets are being drawn from the top
+            // therefore bullets are being drawn from the top
 
             // bullets are not being properly restricted
                 // why is the conditional not met
@@ -24,30 +39,71 @@ export default class Boss extends Character {
             // bullets are not moving to the left
     }
 
+    sample(array) {
+        return this.attackQueue[Math.floor(Math.random() * array.length)]
+    }
+
+    attack(perform) {
+        if(this.stop) {
+            setTimeout(()=>{
+                this.stop = false
+            }, 2000)
+        }
+        switch(perform) {
+            case "charge":
+                if (!this.stop) {
+                    this.charge()
+                }
+                break
+            case "projectile":
+                this.fireProjectile()
+                break
+        }
+    }
+
     fireProjectile() {
         // create a projectile instance
-        console.log(this.game.projectiles.length < 4) // conditional does not work
+        // console.log(this.game.projectiles.length < 4) // conditional does not work
         const bullet = new Projectile({
             pos: {
                 x: this.pos.x,
                 y: this.pos.y
-                } 
+                },
+            vel: {
+                x: 0,
+                y: 0
+            } 
         })
         if (this.game.projectiles.length < 4) {
-            this.game.add(bullet)
-        }
+            if (this.action) {
+                this.action = false
+                setTimeout(() => {
+                    this.game.add(bullet)
+                    this.action = true
+                }, 1000)
+            }
+        } 
+        this.game.projectiles.forEach((bullet, index) => {
+            if (bullet.pos.x <= 0) this.game.projectiles.splice(index, 1)
+        })
+        
         // console.log(this.game.projectiles)
     }
 
     // moves boss from right to left and back to starting point
     charge() {
         this.pos.x -= this.velX
+
         if  (this.pos.x <= 0) {
             this.velX *= -1
         }
         if (this.pos.x > (1000-this.width-25)) {
-            this.velX = 0
+            this.velX = 10
+            this.stop = true
         }
+
+
+        console.log(this.velX)
     }
 
     collideWith(otherObject) {
