@@ -8,7 +8,7 @@ export default class Boss extends Character {
         this.height = 250
         this.width = 100
         this.health = 20
-        this.velX = 10
+        this.velX = 20
         this.attackQueue = [
             "charge",
             "projectile"
@@ -74,15 +74,17 @@ export default class Boss extends Character {
                 y: 0
             } 
         })
-        if (this.game.projectiles.length < 4) {
-            if (this.action) {
-                this.action = false
-                setTimeout(() => {
-                    this.game.add(bullet)
-                    this.action = true
-                }, 1000)
-            }
-        } 
+        if (this.pos.x > (1000-this.width-25)) {
+            if (this.game.projectiles.length < 4) {
+                if (this.action) {
+                    this.action = false
+                    setTimeout(() => {
+                        this.game.add(bullet)
+                        this.action = true
+                    }, 1000)
+                }
+            } 
+        }
         this.game.projectiles.forEach((bullet, index) => {
             if (bullet.pos.x <= 0) this.game.projectiles.splice(index, 1)
         })
@@ -98,7 +100,7 @@ export default class Boss extends Character {
             this.velX *= -1
         }
         if (this.pos.x > (1000-this.width-25)) {
-            this.velX = 10
+            this.velX = 20
             this.stop = true
         }
 
