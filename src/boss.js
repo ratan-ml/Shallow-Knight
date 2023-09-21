@@ -2,6 +2,9 @@ import Character from "./character"
 import Player from "./player"
 import Projectile from "./projecticle"
 
+const imgSrc = "assets/game/boss/png_sheet/Character_sheet.png"
+const flippedImgSrc = "assets/game/boss/golem_reversed.png"
+
 export default class Boss extends Character {
     constructor(options) {
         super(options)
@@ -9,16 +12,31 @@ export default class Boss extends Character {
         this.width = 100
         this.health = 20
         this.velX = 20
+        
         this.attackQueue = [
             "charge",
             "projectile"
         ]
+        this.image.src = flippedImgSrc
+        this.animationStates = [
+            { name: "idle", frames: 4 },
+            { name: "glow", frames: 8 },
+            { name: "projectile", frames: 9 },
+            { name: "charge", frames: 8 },
+            { name: "melee", frames: 7 },
+            { name: "beam", frames: 7 },
+            { name: "armor", frames: 10 },
+            { name: "death1", frames: 10 },
+            { name: "death2", frames: 4 }
+        ]
         this.action = true
         this.stop = false
+        this.cycleFrames()
     }
 
     update() {
         this.applyGravity()
+        this.animateFrames()
         // if(this.stop){
         //     setTimeout(()=>{
         //         this.stop = false
@@ -106,6 +124,20 @@ export default class Boss extends Character {
 
 
         console.log(this.velX)
+    }
+
+    cycleFrames() {
+        this.animationStates.forEach((state, index) => {
+            let frames = {
+                loc: [],
+            }
+            for (let j = 0; j < state.frames; j++) {
+                let positionX = j * this.frameWidth
+                let positionY = index * this.frameHeight
+                frames.loc.push({x: positionX, y: positionY})
+            }
+            this.spriteAnimations[state.name] = frames
+        })
     }
 
     collideWith(otherObject) {

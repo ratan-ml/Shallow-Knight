@@ -33,6 +33,8 @@ export default class Character {
         this.staggerFrames = 10
         this.playerState = "idle"
         this.spriteAnimations = []
+        this.animationStates = []
+        
     }
 
     draw(ctx) {
@@ -115,6 +117,7 @@ export default class Character {
         this.frameY = this.spriteAnimations[this.playerState].loc[pos].y
         this.framesElapsed++
     }
+
 
 
 }

@@ -33,7 +33,13 @@ export default class Game {
                 y: 0,
             },
             game: this,
-            health: 20
+            health: 20,
+            framesMax: 4,
+            frameX: 0,
+            frameY: 0,
+            frameWidth: 10, // according to download source
+            frameHeight: 10 // according to download source
+
         });
         this.projectiles = [];
         this.ctx = ctx

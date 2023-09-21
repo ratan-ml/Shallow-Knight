@@ -33,7 +33,7 @@ export default class Player extends Character{
             { name: "death", frames: 6 },
             { name: "dash1", frames: 5 },
             { name: "dash2", frames: 5 },
-            { name: "takeHit", frames: 4}
+            { name: "takeHit", frames: 4 }
         ]
         this.cycleFrames()
     }
@@ -112,19 +112,7 @@ export default class Player extends Character{
             //     break
         }
     }
-    cycleFrames() {
-        this.animationStates.forEach((state, index) => {
-            let frames = {
-                loc: [],
-            }
-            for (let j = 0; j < state.frames; j++) {
-                let positionX = j * this.frameWidth
-                let positionY = index * this.frameHeight
-                frames.loc.push({x: positionX, y: positionY})
-            }
-            this.spriteAnimations[state.name] = frames
-        })
-    }
+
     update() {
         this.applyGravity()
         this.animateFrames()
@@ -180,7 +168,19 @@ export default class Player extends Character{
         }, 500)
     }
 
-
+    cycleFrames() {
+        this.animationStates.forEach((state, index) => {
+            let frames = {
+                loc: [],
+            }
+            for (let j = 0; j < state.frames; j++) {
+                let positionX = j * this.frameWidth
+                let positionY = index * this.frameHeight
+                frames.loc.push({x: positionX, y: positionY})
+            }
+            this.spriteAnimations[state.name] = frames
+        })
+    }
 
     collideWith(otherObject) {
         // if attack collides with boss, decrement boss hp
