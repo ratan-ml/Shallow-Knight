@@ -16,9 +16,8 @@ export default class Player extends Character{
 
         this.isAttacking = false
         // this.isDashing = false
-        if (!this.isDead) {
-            this.initMovement()
-        }
+
+        this.initMovement()
         // this.jumpCount = 2
         this.attackDir = "rightFacing"
         this.action = true
@@ -37,17 +36,17 @@ export default class Player extends Character{
             { name: "takeHit", frames: 4}
         ]
         this.cycleFrames()
-        this.isDead = false
     }
 
     initMovement() {
+        
         document.addEventListener("keydown", this.handleKeyDown.bind(this))
         document.addEventListener("keyup", this.handleKeyUp.bind(this))
     }
 
     handleKeyDown(event) {
         // can't attack from the dead
-        if (this.health === 0) return
+        if (this.isOutofHP()) return
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = true;
@@ -92,6 +91,8 @@ export default class Player extends Character{
     }
 
     handleKeyUp(event) {
+        // do nothing if dead
+        if (this.isOutofHP()) return
         switch (event.key) {
             case "ArrowLeft":
                 this.isMovingLeft = false
@@ -137,7 +138,7 @@ export default class Player extends Character{
         }
 
         // can only move when alive
-        if (this.health > 0) {
+        if (!this.isOutofHP()) {
         // Move left/right
             if (this.isMovingLeft) {
                 this.vel.x = -10;
@@ -146,6 +147,7 @@ export default class Player extends Character{
             }
         } else {
             this.playerState = "death"
+            this.vel.x = 0
         }
     }
 
@@ -178,9 +180,11 @@ export default class Player extends Character{
         }, 500)
     }
 
+
+
     collideWith(otherObject) {
         // if attack collides with boss, decrement boss hp
-        if (otherObject.health > 0) {
+        if (!otherObject.isOutofHP()) {
             otherObject.health -= 1
             console.log(`boss lives:${otherObject.health}`)
             otherObject.isInvulnerable = true

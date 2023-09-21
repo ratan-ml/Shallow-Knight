@@ -14,23 +14,27 @@ export default class Boss extends Character {
     update() {
         this.applyGravity()
         // this.charge()
-        // bullets are being created, but not shooting
         // this.fireProjectile() 
+            // boss start from the top and drops
+            // therefor bullets are being drawn from the top
+
+            // bullets are not being properly restricted
+                // why is the conditional not met
+                    
+            // bullets are not moving to the left
     }
 
     fireProjectile() {
         // create a projectile instance
-        // 
+        console.log(this.game.projectiles.length < 4) // conditional does not work
+        const bullet = new Projectile({
+            pos: {
+                x: this.pos.x,
+                y: this.pos.y
+                } 
+        })
         if (this.game.projectiles.length < 4) {
-            const bullet = new Projectile({
-                pos: {
-                    x: this.pos.x,
-                    y: this.pos.y
-                    } 
-            })
-            setInterval(() => {
-                this.game.add(bullet)
-            }, 2000)
+            this.game.add(bullet)
         }
         // console.log(this.game.projectiles)
     }
@@ -71,7 +75,6 @@ export default class Boss extends Character {
         } else {
             // console.log("dead")
             otherObject.playerState = "death"
-            otherObject.isDead = true
         } 
     }
 

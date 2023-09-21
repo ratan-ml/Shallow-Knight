@@ -84,10 +84,7 @@ export default class Game {
 
                 if (obj1.isCollidedWith(obj2)) {
                     console.log("collided")
-                    const collision = obj1.collideWith(obj2);
-                //     if (collision) return;
-                        // if obj2 is Player, decrement hp
-                        // implement invulnerability
+                    obj1.collideWith(obj2);
                 }
             }
         }
@@ -109,13 +106,15 @@ export default class Game {
 
     restart() {
         this.running = false
-        // this.player = new Player
-        // this.level = level 1
+        const game = new Game(ctx)
     }
 
 
 
-    // depending on movement state, adjust player's x or y axis
+    isGameOver() {
+        // TODO: refactor to account when three bosses are defeated
+        return (this.player.health === 0) || (this.boss.health === 0)
+    }
     
     drawBackground() {
         const background = new Background()

@@ -20,6 +20,3 @@ decrement hp
 - when player collides with projectile or boss, decrement player hp
 
 next boss (don't get ahead of yourself buddy)
-
-mute button credits
-<a href="https://www.flaticon.com/free-icons/mute" title="mute icons">Mute icons created by Freepik - Flaticon</a>

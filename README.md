@@ -68,4 +68,18 @@ NB:
    + If you have time, rewrite your project proposal as a production README.
    + Double-check that everything is working correctly and make any necessary last-minute adjustments before sharing your project.
 
-   <a href="https://www.flaticon.com/free-icons/mute" title="mute icons">Mute icons created by Freepik - Flaticon</a>
+   
+
+## Resources
+### Images
+<a href="https://www.flaticon.com/free-icons/mute">Freepik</a>
+<a href="https://darkpixel-kronovi.itch.io/">Character Sprites by Kronovi-</a>
+<a href="https://craftpix.net/freebies/free-mountain-backgrounds-pixel-art/?num=1&count=42&sq=mountain&pos=8">Background by CraftPix-</a>
+
+
+### Music
+<a href="https://karlcasey.bandcamp.com/track/torn-flesh">Torn Flesh by Karl Casey</a>
+
+### Inspiration
+<a href="https://www.youtube.com/@Frankslaboratory">Franks laboratory</a>
+<a href="https://www.youtube.com/@ChrisCourses">Chris Courses</a>

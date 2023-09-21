@@ -89,16 +89,15 @@ export default class Character {
         this.collideWithFloor()
     }
 
+    isOutofHP() {
+        return this.health <= 0
+    }
+
     collideWithFloor() {
         const characterBase = this.pos.y + this.height + this.vel.y
         if (characterBase >= 574) {
             this.vel.y = 0
         }
-    }
-
-    isOutofBounds(pos) {
-        return (pos[0] < 0) || (pos[1] < 0) ||
-        (pos[0] > Game.DIM_X) || (pos[1] > Game.DIM_Y);
     }
 
     collideWith(otherObject) {
