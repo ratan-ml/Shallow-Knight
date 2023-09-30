@@ -14,7 +14,7 @@ export default class Player extends Character{
         this.isMovingLeft = false
         this.isMovingRight = false
 
-        this.isAttacking = false
+        // this.isAttacking = false
         // this.isDashing = false
 
         this.initMovement()
@@ -35,6 +35,10 @@ export default class Player extends Character{
             { name: "dash2", frames: 5 },
             { name: "takeHit", frames: 4 }
         ]
+        this.offsetX = 50
+        this.offsetY = 20
+        this.offsetWidth = this.width * 3 + 12
+        this.offsetHeight = this.height + 27
         this.cycleFrames()
     }
 

@@ -8,13 +8,14 @@ const flippedImgSrc = "assets/game/boss/golem_reversed.png"
 export default class Boss extends Character {
     constructor(options) {
         super(options)
-        this.height = 250
-        this.width = 100
+        this.height = 150
+        this.width = 115
         this.health = 20
         this.velX = 20
         
+        this.playerState = "projectile"
         this.attackQueue = [
-            "charge",
+            // "charge",
             "projectile"
         ]
         this.image.src = flippedImgSrc
@@ -29,6 +30,11 @@ export default class Boss extends Character {
             { name: "death1", frames: 10 },
             { name: "death2", frames: 4 }
         ]
+        this.offsetX = 62
+        this.offsetY = 70
+        this.offsetWidth = this.width * 2 + 5
+        this.offsetHeight = this.height * 2
+
         this.action = true
         this.stop = false
         this.cycleFrames()
@@ -37,6 +43,7 @@ export default class Boss extends Character {
     update() {
         this.applyGravity()
         this.animateFrames()
+        // console.log(this.image)
         // if(this.stop){
         //     setTimeout(()=>{
         //         this.stop = false
@@ -85,7 +92,7 @@ export default class Boss extends Character {
         const bullet = new Projectile({
             pos: {
                 x: this.pos.x,
-                y: this.pos.y
+                y: this.pos.y + 30
                 },
             vel: {
                 x: 0,
@@ -121,9 +128,6 @@ export default class Boss extends Character {
             this.velX = 20
             this.stop = true
         }
-
-
-        console.log(this.velX)
     }
 
     cycleFrames() {

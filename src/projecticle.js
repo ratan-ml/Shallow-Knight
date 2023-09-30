@@ -1,27 +1,76 @@
+import Player from "./player";
 
-// draw circle
-    // vel and dir
-// draw column
-// draw row
 export default class Projectile {
     constructor(options) {
         this.pos = options.pos
         this.vel = options.vel
+        this.width = 25
+        this.height = 25
     }
 
     draw(ctx) {
         // bullet
         ctx.fillStyle = "pink";
-        ctx.fillRect(this.pos.x, this.pos.y, 25, 25);
+        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
     }
 
     update() {
         // this.pos.x -= 5
         this.pos.x += this.vel.x
-        this.vel.x = -5
+        this.vel.x = -10
     }
 
-    isCollidedWith() {
-        // temp
+    collideWith(otherObject) {
+        // if proj collides with player, decrement player hp
+        if (otherObject.health > 0) {
+            otherObject.health -= 1
+            const playerHP = document.querySelector("#player-health")
+            const heart = playerHP.querySelector("img:last-child")
+            playerHP.removeChild(heart)
+            console.log(`lives:${otherObject.health}`)
+
+            otherObject.isInvulnerable = true
+            otherObject.playerState = "takeHit"
+            const takeHit = setInterval(() => {
+                otherObject.playerState = "takeHit"
+            }, 250)
+            setTimeout(() => {
+                clearInterval(takeHit)
+                otherObject.playerState = "idle"
+            }, 500)
+            setTimeout(() => {
+                otherObject.isInvulnerable = false
+
+            }, 1000)
+        } else {
+            // console.log("dead")
+            otherObject.playerState = "death"
+        } 
+    }
+
+    // used in game.js to check for collision
+    isCollidedWith(object) {
+        // const distance = Util.dist(this.pos, object.pos)
+        if (object instanceof Player && !object.isInvulnerable) {
+        // measurement for player
+        const objectLeft = object.pos.x
+        const objectRight = objectLeft + object.width
+        const objectTop = object.pos.y
+        const objectBottom = objectTop + object.height
+        // measurement for proj
+        const projLeft = this.pos.x
+        const projRight = projLeft + this.width
+        const projTop = this.pos.y 
+        const projBottom = projTop + this.height
+        
+        return (
+            // checks if object's width overlaps with proj's width
+            ((projLeft >= objectLeft && projLeft <= objectRight) ||
+            (projRight >= objectLeft && projRight <= objectRight)) &&
+            // checks if object's height overlaps with proj's height
+            ((projTop >= objectTop && projTop <= objectBottom) ||
+            (projBottom >= objectTop && projBottom <= objectBottom))
+        );
+        }
     }
 }

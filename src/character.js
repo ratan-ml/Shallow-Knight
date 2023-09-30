@@ -18,7 +18,7 @@ export default class Character {
             height: 75,
             width: 56
         }
-        this.attackDir = null // change attack box dir depending on last key?
+        this.attackDir = null
         this.isInvulnerable = false
         this.health = null
 
@@ -28,6 +28,10 @@ export default class Character {
         this.frameY = options.frameY
         this.frameWidth = options.frameWidth
         this.frameHeight = options.frameHeight
+        this.offsetX = 50
+        this.offsetY = 20
+        this.offsetWidth = 0
+        this.offsetHeight = 0
 
         this.framesElapsed = 0
         this.staggerFrames = 10
@@ -65,10 +69,10 @@ export default class Character {
             this.frameY, 
             this.frameWidth, 
             this.frameHeight,
-            this.pos.x - 50, // offset to align left to hitbox
-            this.pos.y - 20, // offset
-            this.width * 3 + 12, // scale
-            this.height + 27 // scale
+            this.pos.x - this.offsetX, // offset to align left to hitbox
+            this.pos.y - this.offsetY, // offset
+            this.offsetWidth, // scale
+            this.offsetHeight // scale
             )
 
 

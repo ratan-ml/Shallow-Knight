@@ -37,8 +37,8 @@ export default class Game {
             framesMax: 4,
             frameX: 0,
             frameY: 0,
-            frameWidth: 10, // according to download source
-            frameHeight: 10 // according to download source
+            frameWidth: 100, // according to download source
+            frameHeight: 100 // according to download source
 
         });
         this.projectiles = [];
