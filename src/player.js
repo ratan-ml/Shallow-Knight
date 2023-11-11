@@ -52,19 +52,23 @@ export default class Player extends Character{
         // can't attack from the dead
         if (this.isOutofHP()) return
         switch (event.key) {
+            
             case "ArrowLeft":
+            case "a":
                 this.isMovingLeft = true;
                 this.attackDir = "leftFacing"
                 this.image.src = flippedImgSrc
                 this.switchState("walk")
                 break;
             case "ArrowRight":
+            case "d":
                 this.isMovingRight = true;
                 this.attackDir = "rightFacing"
                 this.image.src = imgSrc
                 this.switchState("walk")
                 break;
             case "z":
+            case "k":
                 // TODO: limit to one jump per floor contact
                 // ISSUE: buffer/lag on resetting jump when contacting floor
                 // console.log(this.jumpCount)
@@ -80,6 +84,7 @@ export default class Player extends Character{
                 // console.log(this.jumpCount)
                 break;
             case "x":
+            case "j":
                 if (this.action) {
                     this.action = false
                     this.attack()
@@ -99,11 +104,13 @@ export default class Player extends Character{
         if (this.isOutofHP()) return
         switch (event.key) {
             case "ArrowLeft":
+            case "a":
                 this.isMovingLeft = false
                 this.switchState("idle")
                 this.vel.x = 0
                 break
             case "ArrowRight":
+            case "d":
                 this.isMovingRight = false
                 this.switchState("idle")
                 this.vel.x = 0
@@ -190,14 +197,15 @@ export default class Player extends Character{
         // if attack collides with boss, decrement boss hp
         if (!otherObject.isOutofHP()) {
             otherObject.health -= 1
-            console.log(`boss lives:${otherObject.health}`)
+            // console.log(`boss lives:${otherObject.health}`)
             otherObject.isInvulnerable = true
             setTimeout(() => {
                 otherObject.isInvulnerable = false
             }, 1000)
         } else {
             // console.log("dead")
-        } 
+            otherObject.playerState = "death1"
+        }
     }
 
     // used in game.js to check for collision

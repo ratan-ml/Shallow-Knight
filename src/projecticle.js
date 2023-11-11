@@ -1,17 +1,33 @@
 import Player from "./player";
 
+const imgSrc = "assets/game/boss/weapon PNG/arm_projectile.png"
+
 export default class Projectile {
     constructor(options) {
         this.pos = options.pos
         this.vel = options.vel
-        this.width = 25
-        this.height = 25
+        this.width = 30
+        this.height = 15
+        this.image2 = new Image()
+        this.image2.src = imgSrc
     }
 
     draw(ctx) {
         // bullet
-        ctx.fillStyle = "pink";
-        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+        // ctx.fillStyle = "pink";
+        // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+
+        ctx.drawImage(
+            this.image2, 
+            0, 
+            0, 
+            100, 
+            100,
+            this.pos.x - 60, // offset to align left to hitbox
+            this.pos.y - 30,
+            100,
+            100
+            )
     }
 
     update() {
@@ -27,7 +43,7 @@ export default class Projectile {
             const playerHP = document.querySelector("#player-health")
             const heart = playerHP.querySelector("img:last-child")
             playerHP.removeChild(heart)
-            console.log(`lives:${otherObject.health}`)
+            // console.log(`lives:${otherObject.health}`)
 
             otherObject.isInvulnerable = true
             otherObject.playerState = "takeHit"

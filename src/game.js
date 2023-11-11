@@ -89,7 +89,7 @@ export default class Game {
                 if (obj1 === obj2) continue
 
                 if (obj1.isCollidedWith(obj2)) {
-                    console.log("collided")
+                    // console.log("collided")
                     obj1.collideWith(obj2);
                 }
             }

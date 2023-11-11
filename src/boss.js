@@ -10,12 +10,12 @@ export default class Boss extends Character {
         super(options)
         this.height = 150
         this.width = 115
-        this.health = 20
-        this.velX = 20
+        this.health = 1
+        this.velX = 10
         
-        this.playerState = "projectile"
+        // this.playerState = "projectile"
         this.attackQueue = [
-            // "charge",
+            "charge",
             "projectile"
         ]
         this.image.src = flippedImgSrc
@@ -40,28 +40,21 @@ export default class Boss extends Character {
         this.cycleFrames()
     }
 
+
     update() {
         this.applyGravity()
         this.animateFrames()
-        // console.log(this.image)
-        // if(this.stop){
-        //     setTimeout(()=>{
-        //         this.stop = false
-        //     }, 2000)
-        // }
 
-        setTimeout(() => {
-            this.attack(this.sample(this.attackQueue))
-        }, 1000)
-        // this.charge()
-        // this.fireProjectile() 
-            // boss start from the top and drops
-            // therefore bullets are being drawn from the top
-
-            // bullets are not being properly restricted
-                // why is the conditional not met
-                    
-            // bullets are not moving to the left
+        
+        if (!this.isOutofHP()) {
+            setTimeout(() => {
+                this.attack(this.sample(this.attackQueue))
+            }, 3000)
+        } else {
+            this.playerState = "death1"
+            this.velX = 0
+            this.attackQueue = []
+        }
     }
 
     sample(array) {
@@ -99,16 +92,15 @@ export default class Boss extends Character {
                 y: 0
             } 
         })
-        if (this.pos.x > (1000-this.width-25)) {
-            if (this.game.projectiles.length < 4) {
-                if (this.action) {
-                    this.action = false
-                    setTimeout(() => {
-                        this.game.add(bullet)
-                        this.action = true
-                    }, 1000)
-                }
-            } 
+        if (this.pos.x > (1000-this.width-25) && this.game.projectiles.length < 4) {
+            if (this.action) {
+                this.action = false
+                setTimeout(() => {
+                    this.game.add(bullet)
+                    this.action = true
+                }, 1000)
+            }
+        
         }
         this.game.projectiles.forEach((bullet, index) => {
             if (bullet.pos.x <= 0) this.game.projectiles.splice(index, 1)
@@ -125,7 +117,7 @@ export default class Boss extends Character {
             this.velX *= -1
         }
         if (this.pos.x > (1000-this.width-25)) {
-            this.velX = 20
+            this.velX = 10
             this.stop = true
         }
     }
@@ -151,7 +143,7 @@ export default class Boss extends Character {
             const playerHP = document.querySelector("#player-health")
             const heart = playerHP.querySelector("img:last-child")
             playerHP.removeChild(heart)
-            console.log(`lives:${otherObject.health}`)
+            // console.log(`lives:${otherObject.health}`)
 
             otherObject.isInvulnerable = true
             otherObject.playerState = "takeHit"
