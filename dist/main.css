@@ -6,6 +6,10 @@ nav {
   justify-content: space-between;
 }
 
+nav .menu-options {
+  padding-left: 0px;
+}
+
 img {
   width: 50px;
   height: 50px;
@@ -16,15 +20,27 @@ ul {
 }
 
 body div {
+  display: flex;
+  justify-content: space-around;
   position: relative;
+  align-items: center;
 }
 body div #player-health {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 150px;
 }
-body div #timer {
+body .tutorial {
+  display: flex;
+  justify-content: space-around;
+}
+
+body {
+  background: white;
+  font-family: "Pixel Operator", cursive;
+  font-size: 20px;
   position: absolute;
-  top: 10px;
-  left: 80%;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

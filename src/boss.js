@@ -4,6 +4,8 @@ import Projectile from "./projecticle"
 
 const imgSrc = "assets/game/boss/png_sheet/Character_sheet.png"
 const flippedImgSrc = "assets/game/boss/golem_reversed.png"
+const playerHurtAudio = new Audio("assets/music/effects/hurt_c_08-102842.mp3")
+playerHurtAudio.volume = 0.1
 
 export default class Boss extends Character {
     constructor(options) {
@@ -28,7 +30,7 @@ export default class Boss extends Character {
             { name: "beam", frames: 7 },
             { name: "armor", frames: 10 },
             { name: "death1", frames: 10 },
-            { name: "death2", frames: 4 }
+            { name: "death2", frames: 1 }
         ]
         this.offsetX = 62
         this.offsetY = 70
@@ -51,7 +53,7 @@ export default class Boss extends Character {
                 this.attack(this.sample(this.attackQueue))
             }, 3000)
         } else {
-            this.playerState = "death1"
+            this.playerState = "death2"
             this.velX = 0
             this.attackQueue = []
         }
@@ -96,6 +98,7 @@ export default class Boss extends Character {
             if (this.action) {
                 this.action = false
                 setTimeout(() => {
+                    this.playerState = "projectile"
                     this.game.add(bullet)
                     this.action = true
                 }, 1000)
@@ -112,7 +115,7 @@ export default class Boss extends Character {
     // moves boss from right to left and back to starting point
     charge() {
         this.pos.x -= this.velX
-
+        this.playerState = "idle"
         if  (this.pos.x <= 0) {
             this.velX *= -1
         }
@@ -146,6 +149,7 @@ export default class Boss extends Character {
             // console.log(`lives:${otherObject.health}`)
 
             otherObject.isInvulnerable = true
+            playerHurtAudio.play()
             otherObject.playerState = "takeHit"
             const takeHit = setInterval(() => {
                 otherObject.playerState = "takeHit"

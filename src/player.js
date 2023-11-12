@@ -3,6 +3,10 @@ import Boss from "./boss"
 
 const imgSrc = "assets/game/player/player-sprite.png"
 const flippedImgSrc = "assets/game/player/flipped-player-sprite.png"
+const playerSwing = new Audio("assets/music/effects/mixkit-dagger-woosh-1487.wav")
+const playerHit = new Audio("assets/music/effects/mixkit-exclamation-of-pain-from-a-zombie-2207.wav")
+playerSwing.volume = 0.1
+playerHit.volume = 0.1
 
 export default class Player extends Character{
     constructor(options) {
@@ -172,6 +176,7 @@ export default class Player extends Character{
         this.isAttacking = true
         this.playerState = "attack2"
         this.staggerFrames = 5
+        playerSwing.play()
         setTimeout(() => {
             this.isAttacking = false
             this.playerState = "idle"
@@ -197,6 +202,7 @@ export default class Player extends Character{
         // if attack collides with boss, decrement boss hp
         if (!otherObject.isOutofHP()) {
             otherObject.health -= 1
+            playerHit.play()
             // console.log(`boss lives:${otherObject.health}`)
             otherObject.isInvulnerable = true
             setTimeout(() => {
@@ -204,7 +210,7 @@ export default class Player extends Character{
             }, 1000)
         } else {
             // console.log("dead")
-            otherObject.playerState = "death1"
+            // otherObject.playerState = "death1"
         }
     }
 

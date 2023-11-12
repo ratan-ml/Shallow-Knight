@@ -10,10 +10,12 @@
         <script src="./dist/main.js" defer></script>
         <title>Shallow Knight</title>
     </head>
-    <header>
+    <body>
         <nav>
             <ul class="menu-options">
-                <li>pause</li>
+                <li id="retry">
+                    <img id="retry-icon" src="assets/icon/reload.png">
+                </li>
                 <li > 
                     <img id="audio-icon" src="assets/icon/mute-speaker.png">
                     <!-- <audio id="audio" loop="loop" autoplay="autoplay">
@@ -21,13 +23,20 @@
                     </audio> -->
                 </li>
             </ul>
+            <ul class="tutorial">
+                <li>
+                    Press the 'left' or 'a' keys for left movement, and 'right' or 'd' keys for right movement. ⬅️ ➡️
+                </li>
+                <li>
+                    Press 'z' or 'k' to jump 🚀 and 'x' or 'j' to attack ⚔️
+                </li>
+            </ul>
             <ul class="social-media">
-                <a href="https://www.linkedin.com/in/raymondtan676"><img src="assets/icon/Linkedin-Mark.png" alt="LinkedIn"></a>
-                <a href="https://github.com/raymondtan676"><img src="assets/icon/GitHub-Mark.png" alt="Github"></a>
+                <a href="https://www.linkedin.com/in/raymondtan676" target="_blank" rel="noopener noreferrer"><img src="assets/icon/Linkedin-Mark.png" alt="LinkedIn"></a>
+                <a href="https://github.com/raymondtan676" target="_blank" rel="noopener noreferrer"><img src="assets/icon/github-logo-silhouette-in-a-square.png" alt="Github"></a>
             </ul>
         </nav>
-    </header>
-    <body>
+
         <div>
             <div id="player-health">
                 <img src="assets/game/player/heart_16x16.png" alt="">
@@ -36,14 +45,7 @@
             </div>
             <canvas id="game-canvas"></canvas>
         </div>
-        <ul class="tutorial">
-            <li>
-                Press the left and right arrow keys to move the character ⬅️ ➡️ 
-            </li>
-            <li>
-                Press 'z' to jump 🚀 and 'x' to attack ⚔️
-            </li>
-        </ul>
+
     </body>
 
 </html>

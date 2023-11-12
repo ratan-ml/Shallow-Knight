@@ -1,6 +1,8 @@
 import Player from "./player";
 
 const imgSrc = "assets/game/boss/weapon PNG/arm_projectile.png"
+const playerHurtAudio = new Audio("assets/music/effects/hurt_c_08-102842.mp3")
+playerHurtAudio.volume = 0.1
 
 export default class Projectile {
     constructor(options) {
@@ -47,6 +49,7 @@ export default class Projectile {
 
             otherObject.isInvulnerable = true
             otherObject.playerState = "takeHit"
+            playerHurtAudio.play()
             const takeHit = setInterval(() => {
                 otherObject.playerState = "takeHit"
             }, 250)

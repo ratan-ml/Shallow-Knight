@@ -10,6 +10,10 @@ nav {
     justify-content: space-between;
 }
 
+nav .menu-options {
+    padding-left: 0px;
+}
+
 img {
     width: 50px;
     height: 50px
@@ -21,20 +25,79 @@ ul {
 
 body {
     div {
+        display: flex;
+        justify-content: space-around;
         position: relative;
+        align-items: center;
+        
+
         #player-health {
             position: absolute;
             top: 10px;
-            left: 10px;
+            left: 150px;
         }
-        #timer {
-            position: absolute;
-            top: 10px;
-            left: 80%;
-        }
+        // #timer {
+        //     position: absolute;
+        //     top: 10px;
+        //     left: 80%;
+        // }
     }
-    // .tutorial {
-    //     display:flex;
-    //     justify-content: space-around;
-    // }
+    .tutorial {
+        display:flex;
+        justify-content: space-around;
+    }
 }
+body {
+    background: white;
+    font-family: 'Pixel Operator', cursive;
+    font-size: 20px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    // margin-right: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// nav {
+//     display: flex;
+//     justify-content: space-between;
+//     padding: 10px; /* Add padding for better spacing */
+//     background-color: #f0f0f0; /* Add a background color */
+// }
+
+// img {
+//     width: 30px; /* Adjust the size of the icons */
+//     height: 30px;
+// }
+
+// ul {
+//     list-style-type: none;
+//     padding: 0;
+//     margin: 0;
+// }
+
+// body {
+//     background-color: #e0e0e0; /* Add a background color for the body */
+
+//     div {
+//         display: flex;
+//         justify-content: space-around;
+//         align-items: center; /* Center items vertically */
+//         height: 100vh; /* Set the height to 100% of the viewport */
+        
+//         #player-health {
+//             position: absolute;
+//             top: 10px;
+//             left: 150px;
+//         }
+
+//         #game-canvas {
+//             position: relative; /* Change to relative */
+//             border: 2px solid #333; /* Add a border for visualization */
+//         }
+
+//         .tutorial {
+//             max-width: 400px; /* Limit the width of the tutorial */
+//         }
+//     }
+// }

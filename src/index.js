@@ -2,6 +2,7 @@ import Game from "./game";
 
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
+const retry = document.getElementById("retry");
 const audio = document.getElementById("audio")
 const audioIcon = document.getElementById("audio-icon")
 
@@ -28,10 +29,12 @@ const muteAudio = (e) => {
 audioIcon.addEventListener("click", muteAudio)
 
 
+
 const game = new Game(ctx)
 game.play()
 
 
 
 
+mute.addEventListener("click", muteAudio)
 

@@ -109,7 +109,19 @@ export default class Game {
 
     restart() {
         this.running = false
-        const game = new Game(ctx)
+        // const game = new Game(ctx)
+
+        // Reset player and boss health
+        this.player.health = 3;
+        this.boss.health = 10;
+
+        // Reset any other game state variables as needed
+
+        // Clear projectiles
+        this.projectiles = [];
+
+        // Resume the game
+        this.play();
     }
 
 
