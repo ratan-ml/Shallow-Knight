@@ -108,21 +108,49 @@ export default class Game {
     }
 
     restart() {
-        this.running = false
-        // const game = new Game(ctx)
-
+        this.running = false;
+    
         // Reset player and boss health
         this.player.health = 3;
-        this.boss.health = 10;
+        this.player.health = 3;
+    
+        // Remove all existing hearts from player-health
+        const playerHP = document.querySelector("#player-health");
+        playerHP.innerHTML = "";
+    
+        // Add three hearts back
+        for (let i = 0; i < 3; i++) {
+            const heartImg = document.createElement("img");
+            heartImg.src = "assets/game/player/heart_16x16.png";
+            heartImg.alt = "Heart";
+            playerHP.appendChild(heartImg);
+        }
+    
+        this.boss.health = 1;
 
+        this.player.playerState = "idle"
+        this.player.isMovingLeft = false
+        this.player.isMovingRight = false
+        this.player.isAttacking = false
+        this.boss.playerState = "idle"
+
+        // Reset velocities
+        this.player.vel.x = 0;
+        this.player.vel.y = 0;
+        this.boss.vel.x = 0;
+        this.boss.vel.y = 0;
+    
         // Reset any other game state variables as needed
-
+        this.player.pos = { x: 25, y: 574 - 250 };
+        this.boss.pos = { x: 875, y: 0 };
+    
         // Clear projectiles
         this.projectiles = [];
-
+    
         // Resume the game
         this.play();
     }
+    
 
 
 

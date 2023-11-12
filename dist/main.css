@@ -4,6 +4,7 @@
 nav {
   display: flex;
   justify-content: space-between;
+  max-width: 1152px;
 }
 
 nav .menu-options {
@@ -19,16 +20,24 @@ ul {
   list-style-type: none;
 }
 
-body div {
+nav .menu-options li:hover {
+  opacity: 50%;
+}
+
+.tutorial {
+  align-items: center;
+}
+
+body .health-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   position: relative;
   align-items: center;
 }
-body div #player-health {
+body .health-container #player-health {
   position: absolute;
   top: 10px;
-  left: 150px;
+  left: 10px;
 }
 body .tutorial {
   display: flex;

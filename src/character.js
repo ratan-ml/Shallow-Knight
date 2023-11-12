@@ -42,8 +42,8 @@ export default class Character {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "red"
-        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
+        // ctx.fillStyle = "red"
+        // ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height)
 
         // attack box dir changes depending on if left or right arrow key is pressed
         if (this.attackDir === "rightFacing") {
@@ -80,10 +80,11 @@ export default class Character {
         // temp hp display on top of character
         ctx.save()
         ctx.textAlign = "center"
-        ctx.font = "10px"
+        ctx.font = "50px Arial"
+        ctx.fillStyle = "white"
         ctx.fillText(this.health, 
             this.pos.x + this.width * 0.5, 
-            this.pos.y)
+            this.pos.y - 10)
         ctx.restore()
     }
 

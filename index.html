@@ -13,14 +13,14 @@
     <body>
         <nav>
             <ul class="menu-options">
-                <li id="retry">
+                <li>
                     <img id="retry-icon" src="assets/icon/reload.png">
                 </li>
                 <li > 
                     <img id="audio-icon" src="assets/icon/mute-speaker.png">
-                    <!-- <audio id="audio" loop="loop" autoplay="autoplay">
+                    <audio id="audio" loop="loop" autoplay="autoplay">
                         <source src="assets/music/Karl Casey - Torn Flesh.mp3" type="audio/mpeg">
-                    </audio> -->
+                    </audio>
                 </li>
             </ul>
             <ul class="tutorial">
@@ -37,14 +37,14 @@
             </ul>
         </nav>
 
-        <div>
+        <div class="health-container">
             <div id="player-health">
                 <img src="assets/game/player/heart_16x16.png" alt="">
                 <img src="assets/game/player/heart_16x16.png" alt="">
                 <img src="assets/game/player/heart_16x16.png" alt="">
             </div>
-            <canvas id="game-canvas"></canvas>
         </div>
+        <canvas id="game-canvas"></canvas>
 
     </body>
 

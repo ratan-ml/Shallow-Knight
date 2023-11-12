@@ -2,8 +2,8 @@ import Game from "./game";
 
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
-const retry = document.getElementById("retry");
 const audio = document.getElementById("audio")
+const retryIcon = document.getElementById("retry-icon");
 const audioIcon = document.getElementById("audio-icon")
 
 canvas.width = Game.DIM_X; 
@@ -26,15 +26,20 @@ const muteAudio = (e) => {
     }
 }
 
+
 audioIcon.addEventListener("click", muteAudio)
+
 
 
 
 const game = new Game(ctx)
 game.play()
 
+const restart = e => {
+    e.preventDefault();
+    game.restart();
+}
+retryIcon.addEventListener("click", restart)
 
 
-
-mute.addEventListener("click", muteAudio)
 
