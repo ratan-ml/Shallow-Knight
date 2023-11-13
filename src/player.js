@@ -186,6 +186,7 @@ export default class Player extends Character{
         }, 500)
     }
 
+    // code from Franks Laboratory
     cycleFrames() {
         this.animationStates.forEach((state, index) => {
             let frames = {

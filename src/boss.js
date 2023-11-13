@@ -125,6 +125,7 @@ export default class Boss extends Character {
         }
     }
 
+    // code from Franks Laboratory
     cycleFrames() {
         this.animationStates.forEach((state, index) => {
             let frames = {

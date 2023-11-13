@@ -115,6 +115,7 @@ export default class Character {
         // default do nothing
     }
 
+    // code from Franks Laboratory
     animateFrames() {
         let pos = Math.floor(this.framesElapsed/this.staggerFrames) % 
         this.spriteAnimations[this.playerState].loc.length
