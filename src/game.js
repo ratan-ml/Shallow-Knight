@@ -133,6 +133,7 @@ export default class Game {
         this.player.isMovingRight = false
         this.player.isAttacking = false
         this.boss.playerState = "idle"
+        this.boss.attackQueue = ["charge", "projectile"]
 
         // Reset velocities
         this.player.vel.x = 0;
@@ -146,17 +147,27 @@ export default class Game {
     
         // Clear projectiles
         this.projectiles = [];
-    
+
         // Resume the game
         this.play();
     }
     
 
-
-
     isGameOver() {
         // TODO: refactor to account when three bosses are defeated
-        return (this.player.health === 0) || (this.boss.health === 0)
+        return this.player.isOutofHP() || this.boss.isOutofHP()
+        // return this.player.isOutofHP()
+    }
+
+    drawGameOver() {
+        // Add logic to display a game over screen
+        this.ctx.fillStyle = "black";
+        this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    
+        this.ctx.fillStyle = "white";
+        this.ctx.font = "30px Arial";
+        this.ctx.fillText("Game Over", Game.DIM_X / 2 - 80, Game.DIM_Y / 2 - 20);
+        this.ctx.fillText("Press 'R' to Restart", Game.DIM_X / 2 - 120, Game.DIM_Y / 2 + 20);
     }
     
     drawBackground() {
@@ -165,9 +176,13 @@ export default class Game {
     }
 
     animate() {
-        this.step()
-        this.draw()
-        requestAnimationFrame(this.animate.bind(this))
+        if (this.isGameOver()) {
+            this.drawGameOver();
+        } else {
+            this.step();
+            this.draw();
+            requestAnimationFrame(this.animate.bind(this));
+        }
     }
 
 }

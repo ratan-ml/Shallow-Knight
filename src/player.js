@@ -147,6 +147,8 @@ export default class Player extends Character{
                 this.vel.x = -10;
             } else if (this.isMovingRight) {
                 this.vel.x = 10;
+            } else {
+                this.vel.x = 0;
             }
         } else {
             this.playerState = "death"

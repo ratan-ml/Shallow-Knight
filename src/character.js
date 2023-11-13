@@ -123,15 +123,15 @@ export default class Character {
         this.framesElapsed++
     }
 
-    animateFrames2() {
-        this.framesElapsed++
+    // animateFrames2() {
+    //     this.framesElapsed++
     
-        if (this.framesElapsed % this.framesHold === 0) {
-            if (this.frameX < this.framesMax - 1) {
-                this.frameX++
-            } else {
-                this.frameX = 0
-            }
-        }
-    }
+    //     if (this.framesElapsed % this.framesHold === 0) {
+    //         if (this.frameX < this.framesMax - 1) {
+    //             this.frameX++
+    //         } else {
+    //             this.frameX = 0
+    //         }
+    //     }
+    // }
 }

@@ -42,4 +42,12 @@ const restart = e => {
 retryIcon.addEventListener("click", restart)
 
 
+if (game.isGameOver) {
+    window.addEventListener('keydown', handleKeyPress);
+}
 
+function handleKeyPress(event) {
+    if (event.key === 'r' || event.key === 'R') {
+        game.restart();
+    }
+}
