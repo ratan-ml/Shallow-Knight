@@ -35,19 +35,19 @@ audioIcon.addEventListener("click", muteAudio)
 const game = new Game(ctx)
 game.play()
 
-const restart = e => {
-    e.preventDefault();
-    game.restart();
-}
-retryIcon.addEventListener("click", restart)
+// const restart = e => {
+//     e.preventDefault();
+//     game.restart();
+// }
+// retryIcon.addEventListener("click", restart)
 
 
-if (game.isGameOver) {
-    window.addEventListener('keydown', handleKeyPress);
-}
+// if (game.isGameOver) {
+//     window.addEventListener('keydown', handleKeyPress);
+// }
 
-function handleKeyPress(event) {
-    if (event.key === 'r' || event.key === 'R') {
-        game.restart();
-    }
-}
+// function handleKeyPress(event) {
+//     if (event.key === 'r' || event.key === 'R') {
+//         game.restart();
+//     }
+// }

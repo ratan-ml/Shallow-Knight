@@ -59,9 +59,48 @@ export default class Game {
     }
     
     allObjects() {
-        console.log()
         return [this.player, this.boss, ...this.projectiles] 
     }
+
+    // clearObjects() {
+    //     this.player = new Player({
+    //         pos: {
+    //             x: 25,
+    //             y: 574 - 250,
+    //         },
+    //         vel: {
+    //             x: 0,
+    //             y: 0,
+    //         },
+    //         game: this,
+    //         health: 25,
+    //         framesMax: 4,
+    //         frameX: 0,
+    //         frameY: 0,
+    //         frameWidth: 50, // according to download source
+    //         frameHeight: 37 // according to download source
+
+    //     });
+    //     this.boss = new Boss({
+    //         pos: {
+    //             x: 875,
+    //             y: 0,
+    //         },
+    //         vel: {
+    //             x: 0,
+    //             y: 0,
+    //         },
+    //         game: this,
+    //         health: 20,
+    //         framesMax: 4,
+    //         frameX: 0,
+    //         frameY: 0,
+    //         frameWidth: 100, // according to download source
+    //         frameHeight: 100 // according to download source
+
+    //     });
+    //     this.projectiles = [];
+    // }
 
     draw() {
         this.drawBackground()
@@ -74,6 +113,7 @@ export default class Game {
     }
 
     updateObjects() {
+        // console.log(this.allObjects())
         this.allObjects().forEach((object) => {
             object.update()
         })
@@ -108,10 +148,9 @@ export default class Game {
     }
 
     restart() {
-        this.running = false;
-    
+        // this.running = false;
+        this.clearObjects()
         // Reset player and boss health
-        this.player.health = 3;
         this.player.health = 3;
     
         // Remove all existing hearts from player-health
@@ -126,7 +165,7 @@ export default class Game {
             playerHP.appendChild(heartImg);
         }
     
-        this.boss.health = 1;
+        this.boss.health = 10;
 
         this.player.playerState = "idle"
         this.player.isMovingLeft = false
@@ -140,7 +179,7 @@ export default class Game {
         this.player.vel.y = 0;
         this.boss.vel.x = 0;
         this.boss.vel.y = 0;
-    
+        console.log(this.player)
         // Reset any other game state variables as needed
         this.player.pos = { x: 25, y: 574 - 250 };
         this.boss.pos = { x: 875, y: 0 };
@@ -167,7 +206,7 @@ export default class Game {
         this.ctx.fillStyle = "white";
         this.ctx.font = "30px Arial";
         this.ctx.fillText("Game Over", Game.DIM_X / 2 - 80, Game.DIM_Y / 2 - 20);
-        this.ctx.fillText("Press 'R' to Restart", Game.DIM_X / 2 - 120, Game.DIM_Y / 2 + 20);
+        // this.ctx.fillText("Press 'R' to Restart", Game.DIM_X / 2 - 120, Game.DIM_Y / 2 + 20);
     }
     
     drawBackground() {

@@ -12,7 +12,7 @@ export default class Boss extends Character {
         super(options)
         this.height = 150
         this.width = 115
-        this.health = 1
+        this.health = 10
         this.velX = 10
         
         // this.playerState = "projectile"
@@ -123,6 +123,7 @@ export default class Boss extends Character {
             this.velX = 10
             this.stop = true
         }
+        console.log(this.velX)
     }
 
     // code from Franks Laboratory

@@ -1,22 +1,7 @@
-fix jump
-- there is lag/buffer when jump and be performed again
-    - may keep unlimited jumps, but must ensure player is inbound
-
-work on boss class
-- queue/chain attack patterns (cycle)
-    - cooldown between attack pattern transitions
-
 work on projectiles
 - will this class house multiple variations of projectile?
     - column
     - horizontal rectangle
     - bullets
-- get bullets to shoot from boss.pos
-    - it is being created but not shot out, prob proj class bug
-    - in "x" interval
-
-decrement hp
-- when attack box collides with boss, decrement boss hp
-- when player collides with projectile or boss, decrement player hp
 
 next boss (don't get ahead of yourself buddy)
