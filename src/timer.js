@@ -12,7 +12,7 @@ class Clock {
     }
 
     printTime() {
-        console.log(`${this.hour}:${this.min}:${this.sec}`)
+        // console.log(`${this.hour}:${this.min}:${this.sec}`)
     }
 
     _tick() {

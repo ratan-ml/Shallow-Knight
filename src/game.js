@@ -179,7 +179,7 @@ export default class Game {
         this.player.vel.y = 0;
         this.boss.vel.x = 0;
         this.boss.vel.y = 0;
-        console.log(this.player)
+        // console.log(this.player)
         // Reset any other game state variables as needed
         this.player.pos = { x: 25, y: 574 - 250 };
         this.boss.pos = { x: 875, y: 0 };

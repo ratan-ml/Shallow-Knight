@@ -123,7 +123,7 @@ export default class Boss extends Character {
             this.velX = 10
             this.stop = true
         }
-        console.log(this.velX)
+        // console.log(this.velX)
     }
 
     // code from Franks Laboratory
